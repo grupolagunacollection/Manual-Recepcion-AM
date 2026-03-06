@@ -1,0 +1,934 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Manual de Recepción · Aldea Mayab</title>
+<style>
+
+:root{
+  --green:#1F5C38;--green-mid:#2A7A4B;--green-lt:#E8F4ED;
+  --amber:#C87D0A;--amber-lt:#FDF3E3;
+  --red:#C0392B;--red-lt:#FDECEA;
+  --sidebar-bg:#111816;--sidebar-w:260px;
+  --white:#FFFFFF;--bg:#F4F6F5;--rule:#D8E4DC;
+  --text:#1A2B1F;--text-mid:#4A6355;
+  --radius:10px;
+}
+*{box-sizing:border-box;margin:0;padding:0;}
+body{font-family:'Inter',system-ui,sans-serif;background:var(--bg);color:var(--text);display:flex;}
+
+/* ── Sidebar ── */
+#sidebar{width:var(--sidebar-w);min-height:100vh;background:var(--sidebar-bg);position:fixed;top:0;left:0;display:flex;flex-direction:column;z-index:100;overflow-y:auto;}
+.sb-header{padding:20px 18px 14px;border-bottom:1px solid #1C301F;position:sticky;top:0;background:var(--sidebar-bg);z-index:10;}
+.sb-book{font-size:9px;font-weight:700;letter-spacing:.12em;color:#72D48A;text-transform:uppercase;margin-bottom:4px;}
+.sb-title{font-size:13px;font-weight:700;color:#fff;line-height:1.3;}
+nav{padding:10px 0 30px;}
+.nav-group{margin-bottom:2px;}
+.nav-group-btn{display:flex;align-items:center;justify-content:space-between;padding:9px 18px;cursor:pointer;color:#A8BFAD;font-size:11px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;user-select:none;}
+.nav-group-btn:hover{color:#fff;}
+.nav-arrow{font-size:9px;transition:transform .2s;}
+.nav-group.open .nav-arrow{transform:rotate(90deg);}
+.nav-items{display:none;padding-bottom:4px;}
+.nav-group.open .nav-items{display:block;}
+.nav-link,.nav-sub{display:block;padding:7px 18px 7px 26px;font-size:12px;color:#7A9E83;text-decoration:none;cursor:pointer;border-left:3px solid transparent;transition:all .15s;}
+.nav-sub{padding-left:36px;font-size:11px;color:#5A7A63;}
+.nav-link:hover,.nav-sub:hover{color:#fff;border-left-color:var(--green-mid);}
+.nav-link.active{color:#72D48A;border-left-color:#72D48A;background:rgba(114,212,138,.08);}
+
+/* ── Main ── */
+#main{margin-left:var(--sidebar-w);flex:1;}
+#topbar{height:50px;background:var(--white);border-bottom:1px solid var(--rule);display:flex;align-items:center;justify-content:space-between;padding:0 36px;position:sticky;top:0;z-index:50;}
+#breadcrumb{font-size:12px;color:var(--text-mid);}
+#breadcrumb strong{color:var(--text);}
+.topbar-meta{display:flex;gap:16px;font-size:11px;color:var(--text-mid);}
+.meta-code{background:var(--green-lt);color:var(--green);padding:2px 8px;border-radius:4px;font-weight:700;font-size:10px;}
+#content{padding:36px 40px 80px;}
+
+/* ── Pages ── */
+.page{display:none;}
+.page.active{display:block;animation:fadeUp .2s ease;}
+@keyframes fadeUp{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:none}}
+
+/* ── Typography ── */
+.proc-eyebrow{font-size:10px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--amber);margin-bottom:8px;}
+.proc-title{font-size:32px;font-weight:800;color:var(--text);line-height:1.15;margin-bottom:8px;}
+.proc-subtitle{font-size:14px;color:var(--text-mid);margin-bottom:24px;line-height:1.5;}
+.proc-footer{display:flex;justify-content:space-between;margin-top:32px;padding-top:14px;border-top:1px solid var(--rule);font-size:11px;color:var(--text-mid);}
+
+/* ── Section headers ── */
+.sec-h{display:flex;align-items:center;gap:10px;margin:28px 0 12px;}
+.sec-num{width:26px;height:26px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:800;flex-shrink:0;}
+.sec-num-g{background:var(--green);color:#fff;}
+.sec-num-a{background:var(--amber);color:#fff;}
+.sec-num-r{background:var(--red);color:#fff;}
+.sec-title{font-size:15px;font-weight:700;color:var(--text);}
+
+/* ── Info boxes ── */
+.info-grid{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin:14px 0;}
+.info-grid-3{display:grid;grid-template-columns:1fr 1fr 1fr;gap:14px;margin:14px 0;}
+.info-card{background:var(--white);border:1px solid var(--rule);border-radius:var(--radius);padding:16px;}
+.info-card-label{font-size:9px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--text-mid);margin-bottom:4px;}
+.info-card-value{font-size:14px;font-weight:700;color:var(--text);}
+
+/* ── Alerts ── */
+.alert{display:flex;gap:14px;padding:14px 16px;border-radius:var(--radius);margin:14px 0;border:1px solid;}
+.alert-icon{font-size:20px;flex-shrink:0;margin-top:1px;}
+.alert-body{font-size:13px;line-height:1.55;}
+.alert-body strong{display:block;font-weight:700;margin-bottom:3px;}
+.a-green{background:var(--green-lt);border-color:#B8D8C0;color:var(--text);}
+.a-amber{background:var(--amber-lt);border-color:#E8C88A;color:#3A2000;}
+.a-red{background:var(--red-lt);border-color:#E8B0A8;color:#4A0E0A;}
+
+/* ── Tables ── */
+.act-table{width:100%;border-collapse:collapse;font-size:13px;margin:14px 0;}
+.act-table.green thead{background:var(--green);}
+.act-table.amber thead{background:var(--amber);}
+.act-table thead th{color:#fff;font-weight:700;font-size:9px;letter-spacing:.08em;text-transform:uppercase;padding:10px 12px;text-align:left;}
+.act-table tbody tr:nth-child(odd){background:var(--white);}
+.act-table tbody tr:nth-child(even){background:var(--bg);}
+.act-table td{padding:10px 12px;border-bottom:1px solid var(--rule);vertical-align:top;line-height:1.45;}
+.act-table td strong{color:var(--green);}
+.badge{display:inline-block;padding:2px 8px;border-radius:4px;font-size:10px;font-weight:700;}
+.badge-g{background:var(--green-lt);color:var(--green);}
+.badge-a{background:var(--amber-lt);color:var(--amber);}
+.badge-r{background:var(--red-lt);color:var(--red);}
+
+/* ── Step lists ── */
+.steps{list-style:none;margin:10px 0;}
+.steps li{display:flex;gap:12px;padding:10px 0;border-bottom:1px solid var(--rule);font-size:13px;line-height:1.5;}
+.steps li:last-child{border-bottom:none;}
+.step-num{width:24px;height:24px;background:var(--green);color:#fff;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:10px;font-weight:800;flex-shrink:0;margin-top:1px;}
+.step-num-a{background:var(--amber);}
+.step-num-r{background:var(--red);}
+.oblig{font-size:9px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--red);background:var(--red-lt);padding:1px 6px;border-radius:3px;margin-left:6px;}
+
+/* ── Flowcharts ── */
+.fc-wrap{background:var(--white);border:1px solid var(--rule);border-radius:var(--radius);padding:18px;overflow-x:auto;margin:14px 0;}
+
+/* ── Cover page ── */
+.cover-tag{display:inline-block;background:var(--amber);color:#fff;font-size:10px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;padding:4px 12px;border-radius:4px;margin-bottom:18px;}
+.cover-title{font-size:48px;font-weight:900;color:var(--text);line-height:1.1;margin-bottom:12px;}
+.cover-sub{font-size:16px;color:var(--text-mid);margin-bottom:32px;line-height:1.5;}
+.cover-meta{display:grid;grid-template-columns:1fr 1fr 1fr;gap:14px;margin-top:32px;}
+.cover-meta-item{background:var(--white);border:1px solid var(--rule);border-radius:var(--radius);padding:16px;}
+.cover-meta-label{font-size:9px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--text-mid);margin-bottom:4px;}
+.cover-meta-val{font-size:15px;font-weight:800;color:var(--text);}
+.cover-toc{margin-top:28px;}
+.cover-toc-title{font-size:11px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--text-mid);margin-bottom:12px;}
+.cover-toc-grid{display:grid;grid-template-columns:1fr 1fr;gap:8px;}
+.toc-item{display:flex;align-items:center;gap:10px;padding:10px 14px;background:var(--white);border:1px solid var(--rule);border-radius:8px;cursor:pointer;transition:all .15s;}
+.toc-item:hover{border-color:var(--green);background:var(--green-lt);}
+.toc-num{font-size:10px;font-weight:800;color:var(--green);}
+.toc-label{font-size:12px;font-weight:600;}
+
+/* ── KPI chips ── */
+.kpi-row{display:flex;gap:10px;flex-wrap:wrap;margin:10px 0;}
+.kpi{background:var(--white);border:1px solid var(--rule);border-radius:8px;padding:10px 14px;min-width:130px;}
+.kpi-val{font-size:22px;font-weight:900;color:var(--green);}
+.kpi-label{font-size:10px;color:var(--text-mid);margin-top:2px;}
+
+/* ── Checklist ── */
+.checklist{list-style:none;margin:10px 0;}
+.checklist li{display:flex;align-items:flex-start;gap:10px;padding:8px 0;border-bottom:1px solid var(--rule);font-size:13px;line-height:1.45;}
+.checklist li:last-child{border-bottom:none;}
+.check-box{width:18px;height:18px;border:2px solid var(--green);border-radius:4px;flex-shrink:0;margin-top:1px;}
+
+/* Mobile */
+#hamburger{display:none;position:fixed;top:10px;left:12px;z-index:300;background:var(--sidebar-bg);border:none;border-radius:6px;padding:10px 13px;cursor:pointer;flex-direction:column;gap:5px;box-shadow:0 2px 12px rgba(0,0,0,.5);touch-action:manipulation;-webkit-tap-highlight-color:transparent;user-select:none;}
+#hamburger span{display:block;width:22px;height:2px;background:#72D48A;border-radius:2px;transition:all .25s;}
+#hamburger.open span:nth-child(1){transform:translateY(7px) rotate(45deg);}
+#hamburger.open span:nth-child(2){opacity:0;}
+#hamburger.open span:nth-child(3){transform:translateY(-7px) rotate(-45deg);}
+#overlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,.55);z-index:90;}
+#overlay.visible{display:block;}
+@media(max-width:768px){
+  #hamburger{display:flex;}
+  #sidebar{transform:translateX(-100%);transition:transform .28s cubic-bezier(.4,0,.2,1);}
+  #sidebar.open{transform:translateX(0);z-index:300;}
+  #main{margin-left:0!important;}
+  #topbar{padding:0 14px 0 56px;}
+  #content{padding:22px 18px 80px;}
+  .cover-meta,.info-grid,.info-grid-3,.cover-toc-grid{grid-template-columns:1fr!important;}
+  .proc-title,.cover-title{font-size:24px;}
+  .fc-wrap svg{max-width:100%;height:auto;}
+  .kpi-row{gap:8px;}
+  .proc-footer{flex-direction:column;gap:4px;font-size:10px;}
+}
+
+/* nav-anchor: section label in nav — same page, no navigation */
+.nav-anchor{display:block;padding:3px 14px 3px 38px;font-size:10px;
+  color:#3E6047;cursor:default;line-height:1.4;user-select:none;}
+.nav-anchor::before{content:'§ ';opacity:.5;}
+
+
+/* ── Sidebar nav scrollable ── */
+#sidebar{overflow-y:hidden;display:flex;flex-direction:column;}
+#sidebar nav{flex:1;overflow-y:auto;overscroll-behavior:contain;}
+#sidebar nav::-webkit-scrollbar{width:4px;}
+#sidebar nav::-webkit-scrollbar-track{background:transparent;}
+#sidebar nav::-webkit-scrollbar-thumb{background:#2A4A30;border-radius:4px;}
+#sidebar nav::-webkit-scrollbar-thumb:hover{background:#3A6040;}
+
+
+</style>
+</head>
+<body>
+<button id="hamburger" aria-label="Menú"><span></span><span></span><span></span></button>
+<div id="overlay"></div>
+<aside id="sidebar">
+  <div class="sb-header">
+    <div class="sb-book">Aldea Mayab · Bacalar</div>
+    <div class="sb-title">Recepción · Manual Operativo</div>
+  </div>
+  <nav>
+    <div class="nav-group open">
+      <div class="nav-group-btn" onclick="toggleGroup(this)">
+        <span class="nav-group-label">Inicio</span>
+        <span class="nav-arrow">&#9654;</span>
+      </div>
+      <div class="nav-items">
+        <a class="nav-link" onclick="show('p-cover')">Portada</a>
+      </div>
+    </div>
+    <div class="nav-group">
+      <div class="nav-group-btn" onclick="toggleGroup(this)">
+        <span class="nav-group-label">1.0 Puesto y Turno</span>
+        <span class="nav-arrow">&#9654;</span>
+      </div>
+      <div class="nav-items">
+        <a class="nav-link" onclick="show('p-11')">1.1 Perfil y Responsabilidades</a>
+        <a class="nav-link" onclick="show('p-12')">1.2 Apertura del Turno</a>
+        <a class="nav-link" onclick="show('p-13')">1.3 Cierre del Turno</a>
+      </div>
+    </div>
+    <div class="nav-group">
+      <div class="nav-group-btn" onclick="toggleGroup(this)">
+        <span class="nav-group-label">2.0 Espacio Físico</span>
+        <span class="nav-arrow">&#9654;</span>
+      </div>
+      <div class="nav-items">
+        <a class="nav-link" onclick="show('p-21')">2.1 Credenza — Cajones</a>
+        <a class="nav-link" onclick="show('p-22')">2.2 Bodega — Inventario</a>
+      </div>
+    </div>
+    <div class="nav-group">
+      <div class="nav-group-btn" onclick="toggleGroup(this)">
+        <span class="nav-group-label">3.0 Control de Accesos</span>
+        <span class="nav-arrow">&#9654;</span>
+      </div>
+      <div class="nav-items">
+        <a class="nav-link" onclick="show('p-31')">3.1 Residentes y Visitas</a>
+        <a class="nav-link" onclick="show('p-32')">3.2 Proveedores</a>
+      </div>
+    </div>
+    <div class="nav-group">
+      <div class="nav-group-btn" onclick="toggleGroup(this)">
+        <span class="nav-group-label">4.0 Huéspedes Airbnb</span>
+        <span class="nav-arrow">&#9654;</span>
+      </div>
+      <div class="nav-items">
+        <a class="nav-link" onclick="show('p-41')">4.1 Check-in</a>
+        <a class="nav-link" onclick="show('p-42')">4.2 Check-out</a>
+      </div>
+    </div>
+    <div class="nav-group">
+      <div class="nav-group-btn" onclick="toggleGroup(this)">
+        <span class="nav-group-label">5.0 AppSheet</span>
+        <span class="nav-arrow">&#9654;</span>
+      </div>
+      <div class="nav-items">
+        <a class="nav-link" onclick="show('p-51')">5.1 Bitácora de Reservas</a>
+        <a class="nav-link" onclick="show('p-52')">5.2 Registro Nocturno</a>
+        <a class="nav-link" onclick="show('p-53')">5.3 Control de Accesos</a>
+        <a class="nav-link" onclick="show('p-54')">5.4 Paquetería e Incidentes</a>
+      </div>
+    </div>
+    <div class="nav-group">
+      <div class="nav-group-btn" onclick="toggleGroup(this)">
+        <span class="nav-group-label">6.0 Atención</span>
+        <span class="nav-arrow">&#9654;</span>
+      </div>
+      <div class="nav-items">
+        <a class="nav-link" onclick="show('p-61')">6.1 Solicitudes y Quejas</a>
+        <a class="nav-link" onclick="show('p-62')">6.2 Paquetería</a>
+      </div>
+    </div>
+    <div class="nav-group">
+      <div class="nav-group-btn" onclick="toggleGroup(this)">
+        <span class="nav-group-label">7.0 Comunicación</span>
+        <span class="nav-arrow">&#9654;</span>
+      </div>
+      <div class="nav-items">
+        <a class="nav-link" onclick="show('p-71')">7.1 Protocolo de Comunicación</a>
+      </div>
+    </div>
+  </nav>
+</aside>
+<div id="main">
+  <div id="topbar">
+    <div id="breadcrumb">Recepción &rsaquo; <strong>Portada</strong></div>
+    <div class="topbar-meta"><span class="meta-code">PR-AM-REC-001</span></div>
+  </div>
+  <div id="content">
+
+<!-- ══ PORTADA ══ -->
+<div class="page active" id="p-cover">
+  <div class="cover-tag">Recepción</div>
+  <h1 class="cover-title">Manual de<br>Recepción</h1>
+  <p class="cover-sub">Procedimientos operativos, organización del espacio físico, uso de AppSheet y estándares de atención para el personal de recepción del Residencial Aldea Mayab</p>
+  <div class="cover-meta">
+    <div class="cover-meta-item"><div class="cover-meta-label">Código</div><div class="cover-meta-val">PR-AM-REC-001</div></div>
+    <div class="cover-meta-item"><div class="cover-meta-label">Versión</div><div class="cover-meta-val">1.0 · 2026</div></div>
+    <div class="cover-meta-item"><div class="cover-meta-label">Responsable</div><div class="cover-meta-val">Gerencia Administrativa</div></div>
+  </div>
+  <div class="cover-toc-grid" style="margin-top:24px;">
+    <div class="toc-item" onclick="show('p-11')"><span class="toc-num">1.0</span><span class="toc-label">Puesto y Turno</span></div>
+    <div class="toc-item" onclick="show('p-21')"><span class="toc-num">2.0</span><span class="toc-label">Espacio Físico</span></div>
+    <div class="toc-item" onclick="show('p-31')"><span class="toc-num">3.0</span><span class="toc-label">Control de Accesos</span></div>
+    <div class="toc-item" onclick="show('p-41')"><span class="toc-num">4.0</span><span class="toc-label">Huéspedes Airbnb</span></div>
+    <div class="toc-item" onclick="show('p-51')"><span class="toc-num">5.0</span><span class="toc-label">AppSheet</span></div>
+    <div class="toc-item" onclick="show('p-61')"><span class="toc-num">6.0</span><span class="toc-label">Atención a Residentes</span></div>
+    <div class="toc-item" onclick="show('p-71')"><span class="toc-num">7.0</span><span class="toc-label">Comunicación Oficial</span></div>
+  </div>
+  <div class="proc-footer"><span>PR-AM-REC-001 · Recepción · Portada</span><span>Confidencial — Residencial Aldea Mayab</span></div>
+</div>
+
+<!-- ══ 1.1 PERFIL Y RESPONSABILIDADES ══ -->
+<div class="page" id="p-11">
+  <div class="proc-eyebrow">1.0 Puesto y Turno · 1.1</div>
+  <h1 class="proc-title">1.1 Perfil y Responsabilidades</h1>
+  <p class="proc-subtitle">Descripción del puesto, competencias requeridas y alcance de funciones</p>
+
+  <div class="sec-h"><div class="sec-num sec-num-g">1</div><div class="sec-title">Descripción del Puesto</div></div>
+  <div class="info-grid">
+    <div class="info-card"><div class="info-card-label">Nombre del puesto</div><div class="info-card-value">Recepcionista de Residencial</div></div>
+    <div class="info-card"><div class="info-card-label">Reporta a</div><div class="info-card-value">Gerencia Administrativa</div></div>
+    <div class="info-card"><div class="info-card-label">Horario actual</div><div class="info-card-value">10:00 – 18:00 (turno único por definir en 2 turnos)</div></div>
+    <div class="info-card"><div class="info-card-label">Ubicación</div><div class="info-card-value">Recepción principal — Aldea Mayab, Bacalar</div></div>
+  </div>
+
+  <div class="sec-h"><div class="sec-num sec-num-g">2</div><div class="sec-title">Responsabilidades Principales</div></div>
+  <table class="act-table green">
+    <thead><tr><th style="width:220px">Función</th><th>Descripción</th></tr></thead>
+    <tbody>
+      <tr><td><strong>Control de accesos</strong></td><td>Registrar en AppSheet toda entrada y salida de residentes, visitas, huéspedes y proveedores. Verificar identidad. Operar la barrera vehicular.</td></tr>
+      <tr><td><strong>Check-in / check-out huéspedes</strong></td><td>Recibir y despedir huéspedes de renta Airbnb/Vivook. Entregar brazaletes, explicar el reglamento básico, registrar en AppSheet.</td></tr>
+      <tr><td><strong>Atención a residentes</strong></td><td>Recibir solicitudes, reportes y quejas. Canalizar al área correspondiente. Dar seguimiento en AppSheet.</td></tr>
+      <tr><td><strong>Manejo de paquetería</strong></td><td>Recibir, registrar, resguardar y notificar al residente la llegada de paquetes. Entregar contra firma.</td></tr>
+      <tr><td><strong>Atención a proveedores</strong></td><td>Verificar identidad y orden de trabajo. Registrar entrada. Acompañar o coordinar con el área que solicitó el servicio.</td></tr>
+      <tr><td><strong>Gestión del espacio físico</strong></td><td>Mantener la credenza organizada, controlar el inventario de bodega y reportar reposición de insumos con anticipación.</td></tr>
+      <tr><td><strong>Registro en AppSheet</strong></td><td>Todo evento del turno queda documentado en AppSheet antes de que ocurra la siguiente acción. Sin excepción.</td></tr>
+    </tbody>
+  </table>
+
+  <div class="sec-h"><div class="sec-num sec-num-a">3</div><div class="sec-title">Lo que NO es función de la Recepción</div></div>
+  <div class="alert a-amber"><div class="alert-icon"></div><div class="alert-body"><strong>Límites del puesto</strong>La recepcionista no toma decisiones sobre sanciones, descuentos, acceso de personas en lista de restricción ni autorización de obras. Ante cualquier situación fuera de los procedimientos estándar, escalar de inmediato a Gerencia.</div></div>
+  <div class="proc-footer"><span>PR-AM-REC-001 · 1.1</span><span>Confidencial — Residencial Aldea Mayab</span></div>
+</div>
+
+<!-- ══ 1.2 APERTURA DEL TURNO ══ -->
+<div class="page" id="p-12">
+  <div class="proc-eyebrow">1.0 Puesto y Turno · 1.2</div>
+  <h1 class="proc-title">1.2 Apertura del Turno</h1>
+  <p class="proc-subtitle">Checklist de inicio — completar en los primeros 15 minutos del turno</p>
+
+  <div class="alert a-green"><div class="alert-icon"></div><div class="alert-body"><strong>Regla de oro</strong>El turno no está oficialmente abierto hasta que el checklist de apertura esté completo y registrado en AppSheet. La persona que entrega no se va hasta que quien recibe confirma haber revisado todo.</div></div>
+
+  <div class="sec-h"><div class="sec-num sec-num-g">1</div><div class="sec-title">Checklist de Apertura</div></div>
+  <ul class="checklist">
+    <li><div class="check-box"></div><span><strong>Revisión del parte del turno anterior</strong> — Leer las novedades dejadas por el turno que cierra. Confirmar que entendiste cualquier situación pendiente.</span></li>
+    <li><div class="check-box"></div><span><strong>Verificar AppSheet</strong> — Revisar que no hay registros pendientes de completar del turno anterior. Confirmar que el sistema carga correctamente.</span></li>
+    <li><div class="check-box"></div><span><strong>Revisar agenda del día</strong> — Consultar en Vivook / AppSheet los check-ins y check-outs programados para el turno. Identificar proveedores agendados.</span></li>
+    <li><div class="check-box"></div><span><strong>Verificar paquetería pendiente</strong> — Confirmar que los paquetes en resguardo están registrados y que sus notificaciones al residente fueron enviadas.</span></li>
+    <li><div class="check-box"></div><span><strong>Estado de la credenza</strong> — Superficie limpia y despejada. Cajones cerrados. Impresora con papel y tinta.</span></li>
+    <li><div class="check-box"></div><span><strong>Revisión rápida de bodega</strong> — Confirmar que los insumos de uso diario están en su lugar. Reportar faltantes si los hay.</span></li>
+    <li><div class="check-box"></div><span><strong>Brazaletes disponibles</strong> — Confirmar stock suficiente para los check-ins del día.</span></li>
+    <li><div class="check-box"></div><span><strong>Registrar apertura en AppSheet</strong> — Hora de inicio, nombre de quien abre, observaciones del turno anterior si las hay.</span></li>
+  </ul>
+  <div class="proc-footer"><span>PR-AM-REC-001 · 1.2</span><span>Confidencial — Residencial Aldea Mayab</span></div>
+</div>
+
+<!-- ══ 1.3 CIERRE DEL TURNO ══ -->
+<div class="page" id="p-13">
+  <div class="proc-eyebrow">1.0 Puesto y Turno · 1.3</div>
+  <h1 class="proc-title">1.3 Cierre del Turno</h1>
+  <p class="proc-subtitle">Checklist de cierre — completar en los últimos 15 minutos del turno</p>
+
+  <div class="sec-h"><div class="sec-num sec-num-g">1</div><div class="sec-title">Checklist de Cierre</div></div>
+  <ul class="checklist">
+    <li><div class="check-box"></div><span><strong>Completar todos los registros en AppSheet</strong> — Ningún evento del turno puede quedar sin registrar al momento del cierre. Accesos, paquetería, incidentes, solicitudes.</span></li>
+    <li><div class="check-box"></div><span><strong>Redactar parte de novedades</strong> — En AppSheet, dejar nota de cualquier situación pendiente, instrucción especial o información relevante para el turno siguiente.</span></li>
+    <li><div class="check-box"></div><span><strong>Paquetería</strong> — Confirmar que todos los paquetes recibidos están registrados y que se notificó al residente correspondiente.</span></li>
+    <li><div class="check-box"></div><span><strong>Orden de la credenza</strong> — Dejar la superficie despejada y limpia. Cajones cerrados. Impresora lista.</span></li>
+    <li><div class="check-box"></div><span><strong>Bodega</strong> — Cerrar la bodega con llave. Verificar que no hay productos fuera de su lugar.</span></li>
+    <li><div class="check-box"></div><span><strong>Briefing de entrega</strong> — Informar verbalmente al turno entrante sobre las novedades del día y los pendientes. No salir hasta confirmar que quien recibe entendió todo.</span></li>
+    <li><div class="check-box"></div><span><strong>Registrar cierre en AppSheet</strong> — Hora de término y nombre de quien cierra.</span></li>
+  </ul>
+
+  <div class="sec-h"><div class="sec-num sec-num-a">2</div><div class="sec-title">Situaciones que Debes Escalar Antes de Irte</div></div>
+  <table class="act-table amber">
+    <thead><tr><th>Situación</th><th>A quién escalar</th></tr></thead>
+    <tbody>
+      <tr><td>Huésped con check-in pendiente que no ha llegado</td><td>Gerencia + propietario de la unidad</td></tr>
+      <tr><td>Proveedor que ingresó y no ha salido</td><td>Gerencia + Jefe de Mantenimiento</td></tr>
+      <tr><td>Incidente sin resolución documentada</td><td>Gerencia Administrativa</td></tr>
+      <tr><td>Paquete que llegó y el residente no responde</td><td>Dejar nota en AppSheet y bodega con etiqueta</td></tr>
+      <tr><td>Falla de AppSheet o sistema sin registros</td><td>Gerencia + registrar en bitácora física de respaldo</td></tr>
+    </tbody>
+  </table>
+  <div class="proc-footer"><span>PR-AM-REC-001 · 1.3</span><span>Confidencial — Residencial Aldea Mayab</span></div>
+</div>
+
+<!-- ══ 2.1 CREDENZA — CAJONES ══ -->
+<div class="page" id="p-21">
+  <div class="proc-eyebrow">2.0 Espacio Físico · 2.1</div>
+  <h1 class="proc-title">2.1 Credenza — Organización de Cajones y Módulos</h1>
+  <p class="proc-subtitle">Asignación de cada cajón y puerta. Todo tiene un lugar; nada debe estar fuera de su lugar.</p>
+
+  <div class="alert a-green"><div class="alert-icon"></div><div class="alert-body"><strong>Principio de orden</strong>La credenza es la cara de la recepción. La superficie siempre debe estar despejada excepto por la impresora. Si algo está sobre la credenza y no es la impresora, debe tener una razón y un tiempo límite para estar ahí.</div></div>
+
+  <div class="sec-h"><div class="sec-num sec-num-g">1</div><div class="sec-title">Módulo Izquierdo — 3 Cajones</div></div>
+  <table class="act-table green">
+    <thead><tr><th style="width:120px">Cajón</th><th>Contenido asignado</th><th style="width:180px">Acceso</th></tr></thead>
+    <tbody>
+      <tr><td><strong>Cajón 1 (superior)</strong></td><td>Papelería de uso diario: bolígrafos, marcadores, post-its, clips, ligas, tijeras, cinta adhesiva, grapadora. Todo en organizador dividido.</td><td>Libre — uso diario</td></tr>
+      <tr><td><strong>Cajón 2 (medio)</strong></td><td>Formas y documentos: formatos de registro de visitas, recibos de paquetería, formatos de incidentes, hojas membretadas, block de notas. Máximo 20 hojas de cada formato; reponer cuando queden 5.</td><td>Libre — uso diario</td></tr>
+      <tr><td><strong>Cajón 3 (inferior)</strong></td><td>Artículos de menor frecuencia: cargadores de respaldo, cable HDMI, extensión, paquete de hojas de repuesto para impresora, tintas de repuesto.</td><td>Libre — uso ocasional</td></tr>
+    </tbody>
+  </table>
+
+  <div class="sec-h"><div class="sec-num sec-num-g">2</div><div class="sec-title">Módulo Central — 2 Puertas</div></div>
+  <table class="act-table green">
+    <thead><tr><th style="width:160px">Espacio</th><th>Contenido asignado</th><th style="width:180px">Acceso</th></tr></thead>
+    <tbody>
+      <tr><td><strong>Puerta izquierda</strong></td><td>Resguardo de paquetería pequeña (sobres, cajas hasta 30 cm). Cada paquete con etiqueta: nombre del residente, unidad, fecha de recepción, número de registro AppSheet.</td><td>Llave en cajón 1</td></tr>
+      <tr><td><strong>Puerta derecha</strong></td><td>Archivero activo: carpeta de bitácoras físicas de respaldo (modo offline), carpeta de acuses de paquetería firmados, carpeta de incidentes del mes en curso.</td><td>Libre</td></tr>
+    </tbody>
+  </table>
+
+  <div class="sec-h"><div class="sec-num sec-num-g">3</div><div class="sec-title">Módulo Derecho — Cajones Pequeños</div></div>
+  <table class="act-table green">
+    <thead><tr><th style="width:160px">Cajón</th><th>Contenido asignado</th></tr></thead>
+    <tbody>
+      <tr><td><strong>Cajón superior</strong></td><td>Brazaletes de huéspedes: stock activo ordenado por tipo/color. Registro de inventario pegado en la tapa interior del cajón.</td></tr>
+      <tr><td><strong>Cajón medio</strong></td><td>Llaves de áreas comunes y lockers: cada llave con etiqueta. Gancho numerado por área. Registro de salida en AppSheet obligatorio.</td></tr>
+      <tr><td><strong>Cajón inferior</strong></td><td>Sellos, tampón de tinta, perforadora, engargoladora y artículos de uso muy ocasional.</td></tr>
+    </tbody>
+  </table>
+
+  <div class="sec-h"><div class="sec-num sec-num-a">4</div><div class="sec-title">Superficie de la Credenza</div></div>
+  <table class="act-table amber">
+    <thead><tr><th>Objeto permitido</th><th>Condición</th></tr></thead>
+    <tbody>
+      <tr><td>Impresora Canon</td><td>Posición fija. Con papel. Conectada siempre.</td></tr>
+      <tr><td>Tablet / dispositivo AppSheet</td><td>En su soporte o cargando. Nunca tirado sobre la superficie.</td></tr>
+      <tr><td>Paquete recién recibido</td><td>Máximo 10 minutos antes de registrar y guardar en módulo central.</td></tr>
+      <tr><td>Cualquier otro objeto</td><td>No permitido de forma permanente.</td></tr>
+    </tbody>
+  </table>
+  <div class="proc-footer"><span>PR-AM-REC-001 · 2.1</span><span>Confidencial — Residencial Aldea Mayab</span></div>
+</div>
+
+<!-- ══ 2.2 BODEGA ══ -->
+<div class="page" id="p-22">
+  <div class="proc-eyebrow">2.0 Espacio Físico · 2.2</div>
+  <h1 class="proc-title">2.2 Bodega — Inventario y Organización</h1>
+  <p class="proc-subtitle">Distribución de los dos espacios de bodega, inventario base y procedimiento de reposición</p>
+
+  <div class="sec-h"><div class="sec-num sec-num-g">1</div><div class="sec-title">Cuarto 1 — Amenidades e Insumos de Huéspedes</div></div>
+  <table class="act-table green">
+    <thead><tr><th style="width:160px">Zona</th><th>Contenido</th><th style="width:160px">Nivel de reposición</th></tr></thead>
+    <tbody>
+      <tr><td><strong>Repisa superior</strong></td><td>Amenidades de baño: shampoo, acondicionador, jabón líquido, dispensadores. Aceite, sal de mar, artículos varios de bienvenida.</td><td>Avisar cuando queden menos de 10 unidades de cualquier artículo</td></tr>
+      <tr><td><strong>Superficie baja</strong></td><td>Papel higiénico (Cotton), papel de cocina, agua embotellada Santa María, refrescos, platos desechables, botanas (Sabri Surtido).</td><td>Reponer agua y papel cuando quede 1 paquete. Botanas al quedar 1/3 de caja.</td></tr>
+      <tr><td><strong>Piso</strong></td><td>Textiles: bolsa con ropa de cama / toallas. Solo artículos en espera de asignación a unidad. Nunca acumular aquí de forma permanente.</td><td>Registrar en AppSheet toda entrada y salida de textiles.</td></tr>
+    </tbody>
+  </table>
+
+  <div class="sec-h"><div class="sec-num sec-num-g">2</div><div class="sec-title">Cuarto 2 — Limpieza, Mantenimiento y Textiles</div></div>
+  <table class="act-table green">
+    <thead><tr><th style="width:160px">Zona / Estante</th><th>Contenido</th><th style="width:160px">Nivel de reposición</th></tr></thead>
+    <tbody>
+      <tr><td><strong>Estante negro — nivel superior</strong></td><td>Amenidades extras (shampoo / acond. de reserva), colchonetas o almohadas empacadas.</td><td>Inventario mensual</td></tr>
+      <tr><td><strong>Estante negro — nivel medio</strong></td><td>Servilletas, vasos desechables, cubiertos, cajas etiquetadas con material de oficina.</td><td>Avisar al quedar la última caja</td></tr>
+      <tr><td><strong>Estante negro — nivel bajo</strong></td><td>Productos de limpieza: cloro (multiusos verde), desengrasante, productos de piso. Botellas identificadas.</td><td>Avisar cuando quede menos de 1 litro de cada producto</td></tr>
+      <tr><td><strong>Textiles por unidad</strong></td><td>Toallas etiquetadas por unidad (ej. "Chak 502 · Aldea Mayab"). Separadas por unidad, nunca mezcladas. Pendiente definir si recepción gestiona entrega o solo registro.</td><td>Registrar en AppSheet toda salida y devolución</td></tr>
+      <tr><td><strong>Estante gris — nivel superior</strong></td><td>Materiales de mantenimiento menor: tornillos, clavos, cinta, cables. Responsabilidad del Jefe de Mantenimiento; recepción no toca estos insumos sin autorización.</td><td>Mantenimiento gestiona</td></tr>
+      <tr><td><strong>Piso / área libre</strong></td><td>Escoba, jalador, trapeador. Equipos pendientes de instalar (microondas LG, TV). Solo artículos con destino definido.</td><td>Ningún artículo sin etiqueta ni destino</td></tr>
+    </tbody>
+  </table>
+
+  <div class="sec-h"><div class="sec-num sec-num-a">3</div><div class="sec-title">Procedimiento de Reposición de Insumos</div></div>
+  <ul class="steps">
+    <li><div class="step-num">1</div><span><strong>Detectar faltante</strong> — Durante la apertura del turno o en cualquier momento del día, detectar que un insumo está por agotarse.</span></li>
+    <li><div class="step-num">2</div><span><strong>Registrar en AppSheet</strong> — Anotar el insumo, cantidad actual y cantidad que se necesita en el módulo de solicitudes.</span></li>
+    <li><div class="step-num">3</div><span><strong>Notificar a Gerencia</strong> — Enviar mensaje por WhatsApp al grupo de operaciones indicando el insumo y urgencia. Nunca esperar a que se agote por completo.</span></li>
+    <li><div class="step-num">4</div><span><strong>Recepción de nuevo stock</strong> — Al llegar el pedido, verificar contra la solicitud, acomodar en su lugar asignado y actualizar el registro en AppSheet.</span></li>
+  </ul>
+  <div class="proc-footer"><span>PR-AM-REC-001 · 2.2</span><span>Confidencial — Residencial Aldea Mayab</span></div>
+</div>
+
+<!-- ══ 3.1 RESIDENTES Y VISITAS ══ -->
+<div class="page" id="p-31">
+  <div class="proc-eyebrow">3.0 Control de Accesos · 3.1</div>
+  <h1 class="proc-title">3.1 Residentes y Visitas</h1>
+  <p class="proc-subtitle">Procedimiento de registro y control de acceso para residentes, arrendatarios y sus visitas</p>
+
+  <div class="sec-h"><div class="sec-num sec-num-g">1</div><div class="sec-title">Acceso de Residentes</div></div>
+  <ul class="steps">
+    <li><div class="step-num">1</div><span><strong>Identificar al residente</strong> — Confirmar identidad ya sea por tarjeta de acceso, reconocimiento de cara registrada en sistema o identificación oficial.</span></li>
+    <li><div class="step-num">2</div><span><strong>Verificar estatus en AppSheet</strong> — Confirmar que el residente no tiene restricción activa por adeudo. Si hay restricción, no permitir el acceso a amenidades y notificar a Gerencia. El acceso a su propia unidad nunca se bloquea.</span></li>
+    <li><div class="step-num">3</div><span><strong>Registrar en AppSheet</strong> — Hora de entrada, nombre, unidad, número de personas. Para vehículos: placa y cajón asignado.</span></li>
+    <li><div class="step-num">4</div><span><strong>Operar la barrera</strong> — Solo después del registro. Nunca antes.</span></li>
+  </ul>
+
+  <div class="sec-h"><div class="sec-num sec-num-g">2</div><div class="sec-title">Acceso de Visitas</div></div>
+  <ul class="steps">
+    <li><div class="step-num">1</div><span><strong>Solicitar identificación</strong> — INE o pasaporte. No se aceptan identificaciones vencidas.</span></li>
+    <li><div class="step-num">2</div><span><strong>Confirmar con el residente anfitrión</strong> — Llamar o enviar mensaje al residente para confirmar que espera la visita. Si el residente no responde en 3 minutos, la visita espera en recepción.</span></li>
+    <li><div class="step-num">3</div><span><strong>Registrar en AppSheet</strong> — Nombre completo, identificación (tipo y número), hora de entrada, unidad que visita, nombre del residente anfitrión y número de personas.</span></li>
+    <li><div class="step-num">4</div><span><strong>Entregar pase de visita</strong> — Pase temporal que la visita porta visible durante su estancia.</span></li>
+    <li><div class="step-num">5</div><span><strong>Registrar salida</strong> — Al retirarse, registrar hora de salida en AppSheet y recoger el pase.</span></li>
+  </ul>
+
+  <div class="sec-h"><div class="sec-num sec-num-a">3</div><div class="sec-title">Situaciones Especiales</div></div>
+  <table class="act-table amber">
+    <thead><tr><th>Situación</th><th>Acción</th></tr></thead>
+    <tbody>
+      <tr><td>Visita que el residente no autorizó</td><td>Pedir que espere en recepción. Contactar al residente. Si no autoriza o no contesta, no dar acceso. Registrar el intento en AppSheet.</td></tr>
+      <tr><td>Persona que insiste en entrar sin autorización</td><td>Mantener la calma. No confrontar. Llamar a Gerencia. Si hay amenaza, activar protocolo de seguridad (Libro III · 2.2).</td></tr>
+      <tr><td>Residente con adeudo que quiere acceder a amenidades</td><td>Informar con discreción que hay una restricción administrativa y pedir que contacte a Gerencia. No dar detalles del adeudo frente a otras personas.</td></tr>
+      <tr><td>Grupo de visitas mayor a 6 personas</td><td>Requiere autorización previa de Gerencia. Si llegan sin autorización, solo pueden entrar hasta 6 personas. Notificar a Gerencia inmediatamente.</td></tr>
+    </tbody>
+  </table>
+  <div class="proc-footer"><span>PR-AM-REC-001 · 3.1</span><span>Confidencial — Residencial Aldea Mayab</span></div>
+</div>
+
+<!-- ══ 3.2 PROVEEDORES ══ -->
+<div class="page" id="p-32">
+  <div class="proc-eyebrow">3.0 Control de Accesos · 3.2</div>
+  <h1 class="proc-title">3.2 Atención a Proveedores</h1>
+  <p class="proc-subtitle">Registro, control de acceso y seguimiento de proveedores y personal de servicios externos</p>
+
+  <div class="sec-h"><div class="sec-num sec-num-g">1</div><div class="sec-title">Procedimiento de Acceso</div></div>
+  <ul class="steps">
+    <li><div class="step-num">1</div><span><strong>Verificar que el proveedor está agendado</strong> — Consultar en AppSheet si hay una orden de trabajo o cita registrada para ese proveedor en ese día y hora. Si no está agendado, no dar acceso automático.</span></li>
+    <li><div class="step-num">2</div><span><strong>Confirmar con el área solicitante</strong> — Si el proveedor no está en agenda, llamar al residente o al jefe del área que solicitó el servicio para confirmar. Si no se puede confirmar, el proveedor espera.</span></li>
+    <li><div class="step-num">3</div><span><strong>Solicitar identificación y orden de trabajo</strong> — INE o identificación de la empresa. Número de orden o folio de la solicitud. Empresa y nombre del técnico.</span></li>
+    <li><div class="step-num">4</div><span><strong>Registrar en AppSheet</strong> — Nombre, empresa, motivo, área a la que accede, hora de entrada.</span></li>
+    <li><div class="step-num">5</div><span><strong>Acompañamiento obligatorio</strong> — El proveedor no camina solo por las instalaciones. Recepción coordina que alguien del área correspondiente lo reciba y acompañe.</span></li>
+    <li><div class="step-num">6</div><span><strong>Registrar salida</strong> — Al terminar el trabajo, registrar hora de salida y confirmar con el área solicitante que el servicio quedó completo.</span></li>
+  </ul>
+
+  <div class="sec-h"><div class="sec-num sec-num-a">2</div><div class="sec-title">Proveedores Frecuentes</div></div>
+  <div class="alert a-amber"><div class="alert-icon"></div><div class="alert-body"><strong>Aunque sean conocidos, siempre se registran</strong>Los proveedores de visita frecuente (jardinería, fumigación, mantenimiento de alberca) siguen el mismo procedimiento. El registro no es opcional. La familiaridad no reemplaza el protocolo.</div></div>
+  <table class="act-table amber">
+    <thead><tr><th>Tipo de proveedor</th><th>Área que autoriza acceso</th><th>Zona permitida</th></tr></thead>
+    <tbody>
+      <tr><td>Mantenimiento y reparaciones</td><td>Jefe de Mantenimiento</td><td>Área específica de la orden</td></tr>
+      <tr><td>Limpieza contratada</td><td>Gerencia Administrativa</td><td>Áreas comunes o unidad asignada</td></tr>
+      <tr><td>Jardinería / fumigación</td><td>Jefe de Mantenimiento</td><td>Áreas verdes y exteriores</td></tr>
+      <tr><td>Deliveries / paquetería</td><td>Recepción (sin confirmación extra)</td><td>Solo recepción</td></tr>
+      <tr><td>Proveedor de residente (plomero, electricista, etc.)</td><td>Residente anfitrión</td><td>Solo la unidad del residente</td></tr>
+    </tbody>
+  </table>
+  <div class="proc-footer"><span>PR-AM-REC-001 · 3.2</span><span>Confidencial — Residencial Aldea Mayab</span></div>
+</div>
+
+<!-- ══ 4.1 CHECK-IN ══ -->
+<div class="page" id="p-41">
+  <div class="proc-eyebrow">4.0 Huéspedes Airbnb · 4.1</div>
+  <h1 class="proc-title">4.1 Check-in de Huéspedes</h1>
+  <p class="proc-subtitle">Procedimiento completo de recepción de huéspedes de renta por plataforma (Airbnb / Vivook)</p>
+
+  <div class="sec-h"><div class="sec-num sec-num-g">1</div><div class="sec-title">Preparación Previa al Check-in</div></div>
+  <ul class="steps">
+    <li><div class="step-num">1</div><span><strong>Consultar reservas del día desde la apertura del turno</strong> — En AppSheet, revisar todos los check-ins programados. Identificar la unidad, número de huéspedes, nombre del huésped principal y hora estimada de llegada.</span></li>
+    <li><div class="step-num">2</div><span><strong>Verificar estatus del propietario</strong> — Confirmar que el propietario de la unidad no tiene adeudo activo que restrinja el registro de huéspedes (Libro I · 2.4.3).</span></li>
+    <li><div class="step-num">3</div><span><strong>Preparar brazaletes</strong> — Separar el número de brazaletes que corresponden al grupo (adultos + niños según corresponda).</span></li>
+    <li><div class="step-num">4</div><span><strong>Confirmar que la unidad está lista</strong> — Coordinar con limpieza o el propietario que la unidad fue habilitada para la llegada.</span></li>
+  </ul>
+
+  <div class="sec-h"><div class="sec-num sec-num-g">2</div><div class="sec-title">Procedimiento de Check-in</div></div>
+  <ul class="steps">
+    <li><div class="step-num">1</div><span><strong>Recibir al huésped con saludo cálido</strong> — "Bienvenido a Aldea Mayab" y presentarse por nombre. Primera impresión = primera experiencia del residencial.</span></li>
+    <li><div class="step-num">2</div><span><strong>Verificar identidad</strong> — Solicitar identificación oficial del huésped principal. Confirmar que coincide con el nombre en la reserva de Vivook.</span></li>
+    <li><div class="step-num">3</div><span><strong>Registrar en AppSheet</strong> — Nombre del huésped principal, número de adultos, número de niños, plataforma de origen (Airbnb / Vivook / directo), unidad asignada, fecha de check-in y check-out programado.</span></li>
+    <li><div class="step-num">4</div><span><strong>Entregar brazaletes</strong> — Un brazalete por persona. Explicar que el brazalete es el identificador de acceso a amenidades durante su estancia. Sin brazalete, sin acceso.</span></li>
+    <li><div class="step-num">5</div><span><strong>Briefing de bienvenida (2 minutos)</strong> — Explicar brevemente: horarios de amenidades, reglas básicas de convivencia, número de emergencia del residencial, cómo llegar a su unidad.</span></li>
+    <li><div class="step-num">6</div><span><strong>Registrar brazaletes entregados en AppSheet</strong> — Cantidad exacta entregada. Esto es clave para el check-out.</span></li>
+  </ul>
+
+  <div class="sec-h"><div class="sec-num sec-num-a">3</div><div class="sec-title">Briefing de Bienvenida — Puntos Obligatorios</div></div>
+  <table class="act-table amber">
+    <thead><tr><th>Punto</th><th>Qué decir</th></tr></thead>
+    <tbody>
+      <tr><td>Amenidades</td><td>"La piscina, gimnasio y demás amenidades están disponibles con su brazalete dentro del horario marcado en la pulsera."</td></tr>
+      <tr><td>Silencio nocturno</td><td>"A partir de las 22:00 pedimos guardar silencio en áreas exteriores y pasillos."</td></tr>
+      <tr><td>Fauna</td><td>"Estamos en zona natural. Pueden encontrarse con iguanas u otros animales — no les den de comer y avisenles si ven algo inusual."</td></tr>
+      <tr><td>Emergencia</td><td>"Para cualquier urgencia, llamen directamente a recepción al [número] o al guardia de seguridad."</td></tr>
+      <tr><td>Laguna</td><td>"El acceso al muelle es de 6:00 a 21:00. Fuera de ese horario el área está cerrada por seguridad."</td></tr>
+    </tbody>
+  </table>
+  <div class="proc-footer"><span>PR-AM-REC-001 · 4.1</span><span>Confidencial — Residencial Aldea Mayab</span></div>
+</div>
+
+<!-- ══ 4.2 CHECK-OUT ══ -->
+<div class="page" id="p-42">
+  <div class="proc-eyebrow">4.0 Huéspedes Airbnb · 4.2</div>
+  <h1 class="proc-title">4.2 Check-out de Huéspedes</h1>
+  <p class="proc-subtitle">Procedimiento de salida, recuperación de brazaletes y cierre del registro</p>
+
+  <div class="sec-h"><div class="sec-num sec-num-g">1</div><div class="sec-title">Procedimiento de Check-out</div></div>
+  <ul class="steps">
+    <li><div class="step-num">1</div><span><strong>Verificar la hora de check-out programada</strong> — Desde la apertura del turno, identificar los check-outs del día para estar preparados.</span></li>
+    <li><div class="step-num">2</div><span><strong>Recibir al huésped en recepción</strong> — Saludar y preguntar cómo estuvo su estancia. Actitud amable hasta el final.</span></li>
+    <li><div class="step-num">3</div><span><strong>Recuperar todos los brazaletes</strong> — Contar los brazaletes recibidos y verificar que coinciden con los registrados en el check-in. Si falta alguno, notificar al propietario y registrar en AppSheet.</span></li>
+    <li><div class="step-num">4</div><span><strong>Registrar check-out en AppSheet</strong> — Hora real de salida, número de brazaletes devueltos, observaciones si las hay.</span></li>
+    <li><div class="step-num">5</div><span><strong>Notificar al propietario o limpieza</strong> — Informar que la unidad está disponible para limpieza / habilitación para la siguiente reserva.</span></li>
+    <li><div class="step-num">6</div><span><strong>Despedida</strong> — "Fue un placer tenerlos. Los esperamos pronto en Aldea Mayab."</span></li>
+  </ul>
+
+  <div class="sec-h"><div class="sec-num sec-num-a">2</div><div class="sec-title">Situaciones en Check-out</div></div>
+  <table class="act-table amber">
+    <thead><tr><th>Situación</th><th>Acción</th></tr></thead>
+    <tbody>
+      <tr><td>Huésped sale fuera del horario (tarde o muy temprano)</td><td>Registrar hora real. Si sale antes de la apertura del turno, el turno anterior debe haber dejado nota en AppSheet y la barrera se coordina con seguridad.</td></tr>
+      <tr><td>Brazalete perdido</td><td>Registrar en AppSheet como "brazalete no recuperado". Notificar al propietario. El costo del brazalete lo define Gerencia.</td></tr>
+      <tr><td>Huésped reporta daño en la unidad</td><td>Escuchar, documentar en AppSheet con detalle y fotos si es posible. No hacer juicios. Notificar al propietario de inmediato.</td></tr>
+      <tr><td>Huésped no se presenta al check-out</td><td>Llamar a la unidad. Si no responde en 30 minutos pasada la hora, notificar a Gerencia y al propietario.</td></tr>
+    </tbody>
+  </table>
+  <div class="proc-footer"><span>PR-AM-REC-001 · 4.2</span><span>Confidencial — Residencial Aldea Mayab</span></div>
+</div>
+
+<!-- ══ 5.1 APPSHEET RESERVAS ══ -->
+<div class="page" id="p-51">
+  <div class="proc-eyebrow">5.0 AppSheet · 5.1</div>
+  <h1 class="proc-title">5.1 AppSheet — Bitácora de Reservas</h1>
+  <p class="proc-subtitle">Cómo registrar y consultar reservas de huéspedes en el módulo de Bitácora de Reservas</p>
+
+  <div class="alert a-green"><div class="alert-icon"></div><div class="alert-body"><strong>AppSheet es la fuente de verdad</strong>Todo lo que ocurre en recepción existe en AppSheet. Si no está registrado, no ocurrió. En caso de falla del sistema, usar la bitácora física de respaldo y trasladar los registros a AppSheet en cuanto se restablezca.</div></div>
+
+  <div class="sec-h"><div class="sec-num sec-num-g">1</div><div class="sec-title">Campos del Módulo — Bitácora de Reservas</div></div>
+  <table class="act-table green">
+    <thead><tr><th style="width:200px">Campo</th><th>Qué registrar</th><th style="width:120px">Obligatorio</th></tr></thead>
+    <tbody>
+      <tr><td><strong>Marca temporal</strong></td><td>Se llena automáticamente al crear el registro</td><td><span class="badge badge-g">Automático</span></td></tr>
+      <tr><td><strong>Nombre Huésped Principal</strong></td><td>Nombre completo tal como aparece en la identificación</td><td><span class="badge badge-r">Sí</span></td></tr>
+      <tr><td><strong>Plataforma origen</strong></td><td>Airbnb / Vivook / Directo / Otro</td><td><span class="badge badge-r">Sí</span></td></tr>
+      <tr><td><strong>Torre / Departamento</strong></td><td>Identificador de la unidad (ej. Chak 502)</td><td><span class="badge badge-r">Sí</span></td></tr>
+      <tr><td><strong>Fecha Check-in</strong></td><td>Fecha de llegada programada</td><td><span class="badge badge-r">Sí</span></td></tr>
+      <tr><td><strong>Fecha Check-out</strong></td><td>Fecha de salida programada</td><td><span class="badge badge-r">Sí</span></td></tr>
+      <tr><td><strong>Total Adultos</strong></td><td>Número de adultos del grupo</td><td><span class="badge badge-r">Sí</span></td></tr>
+      <tr><td><strong>Total Niños</strong></td><td>Número de menores. Cero si no hay.</td><td><span class="badge badge-r">Sí</span></td></tr>
+      <tr><td><strong>Status Unidad</strong></td><td>Se actualiza automáticamente vía LOOKUP con el status de Vivook</td><td><span class="badge badge-g">Automático</span></td></tr>
+      <tr><td><strong># Brazaletes Entregados</strong></td><td>Cantidad exacta de brazaletes entregados en el check-in</td><td><span class="badge badge-r">Sí — en check-in</span></td></tr>
+    </tbody>
+  </table>
+
+  <div class="sec-h"><div class="sec-num sec-num-g">2</div><div class="sec-title">Flujo en AppSheet — Check-in</div></div>
+  <ul class="steps">
+    <li><div class="step-num">1</div><span>Abrir AppSheet → módulo <strong>Bitácora de Reservas</strong></span></li>
+    <li><div class="step-num">2</div><span>Tocar el botón <strong>"+ Nueva Reserva"</strong></span></li>
+    <li><div class="step-num">3</div><span>Completar todos los campos marcados como obligatorios</span></li>
+    <li><div class="step-num">4</div><span>En el campo <strong># Brazaletes Entregados</strong> — ingresar la cantidad exacta al momento de la entrega física</span></li>
+    <li><div class="step-num">5</div><span>Tocar <strong>Guardar</strong> — verificar que el registro aparece en la lista</span></li>
+  </ul>
+
+  <div class="sec-h"><div class="sec-num sec-num-a">3</div><div class="sec-title">Flujo en AppSheet — Check-out</div></div>
+  <ul class="steps">
+    <li><div class="step-num">1</div><span>Buscar el registro del huésped por nombre o unidad</span></li>
+    <li><div class="step-num">2</div><span>Abrir el registro y tocar <strong>Editar</strong></span></li>
+    <li><div class="step-num">3</div><span>Actualizar el campo de Status a <strong>"Check-out realizado"</strong></span></li>
+    <li><div class="step-num">4</div><span>Registrar hora real de salida y brazaletes recuperados</span></li>
+    <li><div class="step-num">5</div><span>Guardar</span></li>
+  </ul>
+  <div class="proc-footer"><span>PR-AM-REC-001 · 5.1</span><span>Confidencial — Residencial Aldea Mayab</span></div>
+</div>
+
+<!-- ══ 5.2 REGISTRO NOCTURNO ══ -->
+<div class="page" id="p-52">
+  <div class="proc-eyebrow">5.0 AppSheet · 5.2</div>
+  <h1 class="proc-title">5.2 AppSheet — Registro Nocturno Aldea Mayab</h1>
+  <p class="proc-subtitle">Módulo de reporte de cierre del día y novedades para el turno siguiente</p>
+
+  <div class="sec-h"><div class="sec-num sec-num-g">1</div><div class="sec-title">¿Qué es el Registro Nocturno?</div></div>
+  <div class="alert a-green"><div class="alert-icon"></div><div class="alert-body"><strong>Es la bitácora de cierre del día</strong>El Registro Nocturno es el resumen oficial de lo que ocurrió durante el turno. No es opcional. Cada turno debe completarlo antes de hacer la entrega. Es la primera cosa que lee el turno siguiente al abrir.</div></div>
+
+  <div class="sec-h"><div class="sec-num sec-num-g">2</div><div class="sec-title">Campos del Módulo</div></div>
+  <table class="act-table green">
+    <thead><tr><th style="width:200px">Campo</th><th>Qué registrar</th></tr></thead>
+    <tbody>
+      <tr><td><strong>Fecha y hora de cierre</strong></td><td>Momento en que se completa el registro</td></tr>
+      <tr><td><strong>Nombre de quien cierra</strong></td><td>Tu nombre completo</td></tr>
+      <tr><td><strong>Check-ins realizados</strong></td><td>Número de check-ins completados en el turno</td></tr>
+      <tr><td><strong>Check-outs realizados</strong></td><td>Número de check-outs completados en el turno</td></tr>
+      <tr><td><strong>Paquetes recibidos</strong></td><td>Cantidad y residente destinatario de cada uno</td></tr>
+      <tr><td><strong>Incidentes</strong></td><td>Cualquier situación fuera de lo ordinario, aunque sea menor</td></tr>
+      <tr><td><strong>Pendientes para el turno siguiente</strong></td><td>Todo lo que el siguiente turno debe atender o dar seguimiento</td></tr>
+      <tr><td><strong>Estado del espacio físico</strong></td><td>Credenza en orden, bodega cerrada, impresora con papel</td></tr>
+      <tr><td><strong>Observaciones generales</strong></td><td>Cualquier información adicional relevante</td></tr>
+    </tbody>
+  </table>
+  <div class="proc-footer"><span>PR-AM-REC-001 · 5.2</span><span>Confidencial — Residencial Aldea Mayab</span></div>
+</div>
+
+<!-- ══ 5.3 CONTROL DE ACCESOS ══ -->
+<div class="page" id="p-53">
+  <div class="proc-eyebrow">5.0 AppSheet · 5.3</div>
+  <h1 class="proc-title">5.3 AppSheet — Control de Accesos</h1>
+  <p class="proc-subtitle">Registro digital de entradas y salidas de residentes, visitas y vehículos</p>
+
+  <div class="sec-h"><div class="sec-num sec-num-g">1</div><div class="sec-title">Campos del Módulo</div></div>
+  <table class="act-table green">
+    <thead><tr><th style="width:200px">Campo</th><th>Qué registrar</th><th style="width:120px">Cuándo</th></tr></thead>
+    <tbody>
+      <tr><td><strong>Tipo de acceso</strong></td><td>Residente / Visita / Proveedor / Huésped / Delivery</td><td>Entrada y salida</td></tr>
+      <tr><td><strong>Nombre</strong></td><td>Nombre completo de la persona</td><td>Entrada</td></tr>
+      <tr><td><strong>Identificación</strong></td><td>Tipo (INE/Pasaporte) y número</td><td>Visitas y proveedores</td></tr>
+      <tr><td><strong>Unidad que visita</strong></td><td>Torre y número de departamento</td><td>Visitas y proveedores</td></tr>
+      <tr><td><strong>Hora de entrada</strong></td><td>Hora exacta de acceso</td><td>Entrada</td></tr>
+      <tr><td><strong>Hora de salida</strong></td><td>Hora exacta de salida</td><td>Salida</td></tr>
+      <tr><td><strong>Placa vehicular</strong></td><td>Placa del vehículo si entra en auto</td><td>Entrada vehicular</td></tr>
+      <tr><td><strong>Autorizado por</strong></td><td>Nombre del residente que autorizó (para visitas)</td><td>Entrada de visitas</td></tr>
+      <tr><td><strong>Observaciones</strong></td><td>Cualquier situación especial del acceso</td><td>Cuando aplique</td></tr>
+    </tbody>
+  </table>
+
+  <div class="sec-h"><div class="sec-num sec-num-a">2</div><div class="sec-title">Regla de Registro de Salida</div></div>
+  <div class="alert a-amber"><div class="alert-icon"></div><div class="alert-body"><strong>Todo acceso tiene entrada y salida</strong>Cada registro de entrada debe tener su registro de salida correspondiente. Al cierre del turno, revisar que no haya entradas sin salida (excepto residentes que duermen en sus unidades). Proveedores y visitas sin salida registrada son una alerta que se escala a Gerencia.</div></div>
+  <div class="proc-footer"><span>PR-AM-REC-001 · 5.3</span><span>Confidencial — Residencial Aldea Mayab</span></div>
+</div>
+
+<!-- ══ 5.4 PAQUETERÍA E INCIDENTES ══ -->
+<div class="page" id="p-54">
+  <div class="proc-eyebrow">5.0 AppSheet · 5.4</div>
+  <h1 class="proc-title">5.4 AppSheet — Paquetería e Incidentes</h1>
+  <p class="proc-subtitle">Registro de paquetes recibidos y documentación de incidentes en AppSheet</p>
+
+  <div class="sec-h"><div class="sec-num sec-num-g">1</div><div class="sec-title">Módulo de Paquetería</div></div>
+  <table class="act-table green">
+    <thead><tr><th style="width:200px">Campo</th><th>Qué registrar</th></tr></thead>
+    <tbody>
+      <tr><td><strong>Fecha y hora de recepción</strong></td><td>Momento exacto en que llegó el paquete</td></tr>
+      <tr><td><strong>Destinatario</strong></td><td>Nombre del residente y número de unidad</td></tr>
+      <tr><td><strong>Remitente / Paquetería</strong></td><td>Empresa que entrega (DHL, FedEx, Amazon, etc.)</td></tr>
+      <tr><td><strong>Descripción</strong></td><td>Tamaño aproximado, número de bultos, condición del empaque</td></tr>
+      <tr><td><strong>Número de guía</strong></td><td>Si viene visible en la etiqueta</td></tr>
+      <tr><td><strong>Ubicación de resguardo</strong></td><td>Módulo central de credenza / bodega</td></tr>
+      <tr><td><strong>Notificación al residente</strong></td><td>Marcar cuando se envió el WhatsApp de aviso</td></tr>
+      <tr><td><strong>Fecha y hora de entrega</strong></td><td>Cuando el residente lo recoge</td></tr>
+      <tr><td><strong>Firma de recibido</strong></td><td>Nombre del residente que recogió (foto si es posible)</td></tr>
+    </tbody>
+  </table>
+
+  <div class="sec-h"><div class="sec-num sec-num-g">2</div><div class="sec-title">Módulo de Incidentes</div></div>
+  <table class="act-table green">
+    <thead><tr><th style="width:200px">Campo</th><th>Qué registrar</th></tr></thead>
+    <tbody>
+      <tr><td><strong>Fecha y hora</strong></td><td>Momento en que ocurrió el incidente</td></tr>
+      <tr><td><strong>Tipo de incidente</strong></td><td>Acceso no autorizado / Queja de residente / Daño a instalaciones / Falla de sistema / Otro</td></tr>
+      <tr><td><strong>Descripción detallada</strong></td><td>Qué pasó, quiénes estaban involucrados, qué se hizo</td></tr>
+      <tr><td><strong>Personas involucradas</strong></td><td>Nombres y unidades si aplica</td></tr>
+      <tr><td><strong>Acciones tomadas</strong></td><td>Qué hiciste tú en el momento</td></tr>
+      <tr><td><strong>Escalado a</strong></td><td>A quién notificaste y a qué hora</td></tr>
+      <tr><td><strong>Estado</strong></td><td>Resuelto / En seguimiento / Pendiente</td></tr>
+    </tbody>
+  </table>
+  <div class="alert a-red"><div class="alert-icon"></div><div class="alert-body"><strong>Registrar aunque parezca menor</strong>Un reporte de ruido, una queja verbal, alguien que intentó entrar sin autorización — todo se registra. Los patrones se detectan revisando el historial. Lo que no se documenta no se puede resolver.</div></div>
+  <div class="proc-footer"><span>PR-AM-REC-001 · 5.4</span><span>Confidencial — Residencial Aldea Mayab</span></div>
+</div>
+
+<!-- ══ 6.1 SOLICITUDES Y QUEJAS ══ -->
+<div class="page" id="p-61">
+  <div class="proc-eyebrow">6.0 Atención · 6.1</div>
+  <h1 class="proc-title">6.1 Solicitudes y Quejas de Residentes</h1>
+  <p class="proc-subtitle">Cómo recibir, registrar y canalizar solicitudes y quejas</p>
+
+  <div class="sec-h"><div class="sec-num sec-num-g">1</div><div class="sec-title">Tipos de Solicitudes y Canal</div></div>
+  <table class="act-table green">
+    <thead><tr><th>Tipo</th><th>Acción inmediata</th><th style="width:200px">Canalizar a</th></tr></thead>
+    <tbody>
+      <tr><td>Falla en la unidad (electricidad, plomería, AC)</td><td>Registrar en AppSheet. Notificar al Jefe de Mantenimiento.</td><td>Mantenimiento</td></tr>
+      <tr><td>Queja de ruido de vecino</td><td>Registrar en AppSheet. Llamar a la unidad señalada con discreción.</td><td>Gerencia si persiste</td></tr>
+      <tr><td>Paquete no recibido</td><td>Revisar en AppSheet si está registrado. Buscar en bodega.</td><td>Recepción resuelve</td></tr>
+      <tr><td>Solicitud de información (horarios, reglamento)</td><td>Atender directamente con la información del manual.</td><td>Recepción resuelve</td></tr>
+      <tr><td>Queja formal contra administración o personal</td><td>Escuchar con atención. No defender ni juzgar. Registrar.</td><td>Gerencia Administrativa</td></tr>
+      <tr><td>Solicitud de autorización (obras, evento, visita masiva)</td><td>No autorizar. Tomar datos y canalizar.</td><td>Gerencia Administrativa</td></tr>
+    </tbody>
+  </table>
+
+  <div class="sec-h"><div class="sec-num sec-num-a">2</div><div class="sec-title">Actitud en la Atención</div></div>
+  <div class="alert a-amber"><div class="alert-icon"></div><div class="alert-body"><strong>Escuchar primero, resolver después</strong>Ante una queja, lo más importante es que el residente se sienta escuchado. No interrumpir, no dar excusas, no prometer lo que no puedes cumplir. Decir "lo registro y lo canalizo ahora mismo" es suficiente y correcto. Nunca decir "no sé" sin agregar "pero lo averiguo".</div></div>
+
+  <div class="sec-h"><div class="sec-num sec-num-g">3</div><div class="sec-title">Seguimiento</div></div>
+  <ul class="steps">
+    <li><div class="step-num">1</div><span>Registrar en AppSheet inmediatamente — antes de que el residente se aleje del mostrador.</span></li>
+    <li><div class="step-num">2</div><span>Notificar al área correspondiente por WhatsApp con el número de registro AppSheet.</span></li>
+    <li><div class="step-num">3</div><span>Actualizar el status del registro cuando el área responsable resuelve.</span></li>
+    <li><div class="step-num">4</div><span>Si en 24 horas no hay resolución, escalar a Gerencia con el número de registro.</span></li>
+  </ul>
+  <div class="proc-footer"><span>PR-AM-REC-001 · 6.1</span><span>Confidencial — Residencial Aldea Mayab</span></div>
+</div>
+
+<!-- ══ 6.2 PAQUETERÍA ══ -->
+<div class="page" id="p-62">
+  <div class="proc-eyebrow">6.0 Atención · 6.2</div>
+  <h1 class="proc-title">6.2 Paquetería</h1>
+  <p class="proc-subtitle">Recepción, resguardo, notificación y entrega de paquetes de residentes</p>
+
+  <div class="sec-h"><div class="sec-num sec-num-g">1</div><div class="sec-title">Procedimiento Completo</div></div>
+  <ul class="steps">
+    <li><div class="step-num">1</div><span><strong>Recibir el paquete del delivery</strong> — Verificar que la dirección corresponde a Aldea Mayab y que el nombre está legible. Firmar el acuse del paquetero.</span></li>
+    <li><div class="step-num">2</div><span><strong>Inspección visual</strong> — Revisar que el empaque no tenga daño visible. Si tiene daño, fotografiar antes de firmar y anotar la observación.</span></li>
+    <li><div class="step-num">3</div><span><strong>Registrar en AppSheet</strong> — Completar todos los campos del módulo de paquetería inmediatamente.</span></li>
+    <li><div class="step-num">4</div><span><strong>Etiquetar el paquete</strong> — Pegar etiqueta con: nombre del residente, unidad, fecha de recepción y número de registro AppSheet.</span></li>
+    <li><div class="step-num">5</div><span><strong>Guardar en módulo central de credenza</strong> — Paquetes pequeños en el compartimento asignado. Paquetes grandes que no caben, en la bodega, siempre etiquetados.</span></li>
+    <li><div class="step-num">6</div><span><strong>Notificar al residente por WhatsApp</strong> — "Hola [nombre], llegó un paquete para ti en recepción. Puedes recogerlo cuando gustes en nuestro horario de 10:00 a 18:00."</span></li>
+    <li><div class="step-num">7</div><span><strong>Entrega al residente</strong> — Verificar identidad. Dar el paquete. Registrar en AppSheet: hora de entrega y nombre de quien recogió.</span></li>
+  </ul>
+
+  <div class="sec-h"><div class="sec-num sec-num-a">2</div><div class="sec-title">Paquetes sin Reclamar</div></div>
+  <table class="act-table amber">
+    <thead><tr><th>Tiempo sin reclamar</th><th>Acción</th></tr></thead>
+    <tbody>
+      <tr><td>Mismo día</td><td>WhatsApp de notificación al recibir</td></tr>
+      <tr><td>48 horas</td><td>Segundo aviso por WhatsApp</td></tr>
+      <tr><td>5 días</td><td>Notificar a Gerencia. Gerencia contacta al residente directamente.</td></tr>
+      <tr><td>15 días</td><td>Gerencia decide qué hacer con el paquete. Recepción no toma esta decisión.</td></tr>
+    </tbody>
+  </table>
+  <div class="proc-footer"><span>PR-AM-REC-001 · 6.2</span><span>Confidencial — Residencial Aldea Mayab</span></div>
+</div>
+
+<!-- ══ 7.1 COMUNICACIÓN ══ -->
+<div class="page" id="p-71">
+  <div class="proc-eyebrow">7.0 Comunicación · 7.1</div>
+  <h1 class="proc-title">7.1 Protocolo de Comunicación Oficial</h1>
+  <p class="proc-subtitle">Canales, tono, cadena de escalamiento y directorio de contactos</p>
+
+  <div class="sec-h"><div class="sec-num sec-num-g">1</div><div class="sec-title">Canales y Usos</div></div>
+  <table class="act-table green">
+    <thead><tr><th style="width:180px">Canal</th><th>Para qué se usa</th><th style="width:160px">Tiempo de respuesta</th></tr></thead>
+    <tbody>
+      <tr><td><strong>WhatsApp — Residente</strong></td><td>Notificaciones de paquetería, avisos de restricción de amenidades, confirmación de visitas autorizadas</td><td>Inmediato</td></tr>
+      <tr><td><strong>WhatsApp — Grupo Operaciones</strong></td><td>Comunicación interna entre recepción, mantenimiento y gerencia</td><td>Máx. 15 minutos en horario</td></tr>
+      <tr><td><strong>AppSheet</strong></td><td>Registro oficial de todo evento. Es la fuente de verdad, no WhatsApp.</td><td>Inmediato al ocurrir el evento</td></tr>
+      <tr><td><strong>Llamada telefónica</strong></td><td>Urgencias y situaciones que requieren respuesta inmediata</td><td>Inmediato</td></tr>
+      <tr><td><strong>Correo electrónico</strong></td><td>Comunicaciones formales que requieren constancia escrita</td><td>Máx. 24 horas hábiles</td></tr>
+    </tbody>
+  </table>
+
+  <div class="sec-h"><div class="sec-num sec-num-g">2</div><div class="sec-title">Tono de Comunicación con Residentes</div></div>
+  <div class="alert a-green"><div class="alert-icon"></div><div class="alert-body"><strong>Aldea Mayab es un residencial premium — la comunicación lo debe reflejar</strong>Siempre cordial, claro y breve. No usar jerga ni abreviaciones en mensajes escritos. Nunca comunicar sanciones, restricciones ni información sensible por WhatsApp — esas conversaciones son presenciales o por correo con copia a Gerencia.</div></div>
+  <table class="act-table green">
+    <thead><tr><th>Situación</th><th>Ejemplo de mensaje correcto</th></tr></thead>
+    <tbody>
+      <tr><td>Notificación de paquete</td><td>"Hola [Nombre], te informamos que llegó un paquete a tu nombre a la recepción de Aldea Mayab. Puedes recogerlo en horario de 10:00 a 18:00. Quedamos a tus órdenes."</td></tr>
+      <tr><td>Confirmación de visita</td><td>"Hola [Nombre], confirmamos el acceso de [nombre visita] a las [hora] de hoy. Ya quedó registrado."</td></tr>
+      <tr><td>Solicitud de información</td><td>"Hola [Nombre], con gusto. [Respuesta]. Para cualquier cosa adicional, estamos en recepción."</td></tr>
+    </tbody>
+  </table>
+
+  <div class="sec-h"><div class="sec-num sec-num-a">3</div><div class="sec-title">Cadena de Escalamiento</div></div>
+  <table class="act-table amber">
+    <thead><tr><th>Nivel</th><th>Cuándo</th><th>Contacto</th></tr></thead>
+    <tbody>
+      <tr><td><span class="badge badge-g">1 — Recepción resuelve</span></td><td>Consultas, paquetería, accesos de rutina, check-in/out estándar</td><td>Tú</td></tr>
+      <tr><td><span class="badge badge-a">2 — Escalar a Gerencia</span></td><td>Situación fuera del procedimiento estándar, queja formal, restricción de acceso, incidente</td><td>Gerencia Administrativa</td></tr>
+      <tr><td><span class="badge badge-r">3 — Emergencia</span></td><td>Riesgo a personas, intruso, accidente, falla crítica de infraestructura</td><td>Dirección + Libro III</td></tr>
+    </tbody>
+  </table>
+  <div class="proc-footer"><span>PR-AM-REC-001 · 7.1</span><span>Confidencial — Residencial Aldea Mayab</span></div>
+</div>
+
+  </div>
+</div>
+<script>
+const PAGES = {
+  'p-cover':'Recepción · Portada',
+  'p-11':'1.0 Puesto y Turno · 1.1 Perfil y Responsabilidades',
+  'p-12':'1.0 Puesto y Turno · 1.2 Apertura del Turno',
+  'p-13':'1.0 Puesto y Turno · 1.3 Cierre del Turno',
+  'p-21':'2.0 Credenza · 2.1 Organización de Cajones y Módulos',
+  'p-22':'2.0 Credenza · 2.2 Bodega — Inventario y Organización',
+  'p-31':'3.0 Control de Accesos · 3.1 Registro de Residentes y Visitas',
+  'p-32':'3.0 Control de Accesos · 3.2 Atención a Proveedores',
+  'p-41':'4.0 Huéspedes · 4.1 Check-in',
+  'p-42':'4.0 Huéspedes · 4.2 Check-out',
+  'p-51':'5.0 AppSheet · 5.1 Bitácora de Reservas',
+  'p-52':'5.0 AppSheet · 5.2 Registro Nocturno',
+  'p-53':'5.0 AppSheet · 5.3 Control de Accesos',
+  'p-54':'5.0 AppSheet · 5.4 Paquetería e Incidentes',
+  'p-61':'6.0 Atención · 6.1 Solicitudes y Quejas',
+  'p-62':'6.0 Atención · 6.2 Paquetería',
+  'p-71':'7.0 Comunicación · 7.1 Protocolo de Comunicación',
+};
+function show(id){
+  document.querySelectorAll('.page').forEach(p=>p.classList.remove('active'));
+  document.querySelectorAll('.nav-link,.nav-sub').forEach(n=>n.classList.remove('active'));
+  const page=document.getElementById(id);
+  if(page)page.classList.add('active');
+  const label=PAGES[id]||'';
+  const parts=label.split(' · ');
+  const bc=document.getElementById('breadcrumb');
+  bc.innerHTML='Libro IV &rsaquo; '+parts.slice(0,-1).join(' &rsaquo; ')+' &rsaquo; <strong>'+parts[parts.length-1]+'</strong>';
+  document.querySelectorAll('.nav-link,.nav-sub').forEach(el=>{
+    if((el.getAttribute('onclick')||'').includes("'"+id+"'"))el.classList.add('active');
+  });
+  window.scrollTo({top:0,behavior:'smooth'});
+  if(window.innerWidth<=768&&window.closeSidebar)window.closeSidebar();
+}
+
+function toggleGroup(btn){
+  const group=btn.parentElement;
+  group.classList.toggle('open');
+}
+
+(function(){
+  function _open(){
+    document.getElementById('sidebar').classList.add('open');
+    document.getElementById('hamburger').classList.add('open');
+    document.getElementById('overlay').classList.add('visible');
+    document.body.style.overflow='hidden';
+  }
+  function _close(){
+    document.getElementById('sidebar').classList.remove('open');
+    document.getElementById('hamburger').classList.remove('open');
+    document.getElementById('overlay').classList.remove('visible');
+    document.body.style.overflow='';
+  }
+  window.toggleSidebar=function(){if(document.getElementById('sidebar').classList.contains('open')){_close();}else{_open();}};window.closeSidebar=_close;
+  function init(){
+    var hb=document.getElementById('hamburger');
+    var ov=document.getElementById('overlay');
+    if(hb){
+      hb.addEventListener('click',function(e){e.stopPropagation();window.toggleSidebar();});
+      hb.addEventListener('touchend',function(e){e.preventDefault();e.stopPropagation();window.toggleSidebar();},{passive:false});
+    }
+    if(ov){ov.addEventListener('click',_close);}
+  }
+
+  // Deep-link: si la URL tiene #p-XX al abrir, navegar directamente a esa página
+  function handleDeepLink(){
+    var hash = window.location.hash;
+    if(hash){
+      var id = hash.replace('#','');
+      if(document.getElementById(id)){
+        show(id);
+      }
+    }
+  }
+  if(document.readyState==='loading'){
+    document.addEventListener('DOMContentLoaded', function(){ init(); handleDeepLink(); });
+  } else {
+    init(); handleDeepLink();
+  }
+
+})();
+
+</script>
+</body>
+</html>
