@@ -154,6 +154,9 @@ nav{padding:10px 0 30px;}
   .fc-wrap svg{max-width:100%;height:auto;}
   .kpi-row{gap:8px;}
   .proc-footer{flex-direction:column;gap:4px;font-size:10px;}
+  .act-table{display:block;overflow-x:auto;-webkit-overflow-scrolling:touch;}
+  .act-table th,.act-table td{min-width:140px;}
+  .info-card,.toc-item{min-width:0;}
 }
 
 /* nav-anchor: section label in nav — same page, no navigation */
@@ -234,14 +237,14 @@ nav{padding:10px 0 30px;}
     </div>
     <div class="nav-group">
       <div class="nav-group-btn" onclick="toggleGroup(this)">
-        <span class="nav-group-label">5.0 AppSheet</span>
+        <span class="nav-group-label">5.0 Sistemas Digitales</span>
         <span class="nav-arrow">&#9654;</span>
       </div>
       <div class="nav-items">
-        <a class="nav-link" onclick="show('p-51')">5.1 Bitácora de Reservas</a>
+        <a class="nav-link" onclick="show('p-51')">5.1 Registro de Llegadas</a>
         <a class="nav-link" onclick="show('p-52')">5.2 Registro Nocturno</a>
-        <a class="nav-link" onclick="show('p-53')">5.3 Control de Accesos</a>
-        <a class="nav-link" onclick="show('p-54')">5.4 Paquetería e Incidentes</a>
+        <a class="nav-link" onclick="show('p-53')">5.3 Accesos en Vivook</a>
+        <a class="nav-link" onclick="show('p-54')">5.4 Incidentes</a>
       </div>
     </div>
     <div class="nav-group">
@@ -251,7 +254,7 @@ nav{padding:10px 0 30px;}
       </div>
       <div class="nav-items">
         <a class="nav-link" onclick="show('p-61')">6.1 Solicitudes y Quejas</a>
-        <a class="nav-link" onclick="show('p-62')">6.2 Paquetería</a>
+        <a class="nav-link" onclick="show('p-62')">6.2 Paquetería en Vivook</a>
       </div>
     </div>
     <div class="nav-group">
@@ -261,6 +264,16 @@ nav{padding:10px 0 30px;}
       </div>
       <div class="nav-items">
         <a class="nav-link" onclick="show('p-71')">7.1 Protocolo de Comunicación</a>
+      </div>
+    </div>
+    <div class="nav-group">
+      <div class="nav-group-btn" onclick="toggleGroup(this)">
+        <span class="nav-group-label">8.0 Servicios y Reservas</span>
+        <span class="nav-arrow">&#9654;</span>
+      </div>
+      <div class="nav-items">
+        <a class="nav-link" onclick="show('p-81')">8.1 Reservas de Experiencias</a>
+        <a class="nav-link" onclick="show('p-82')">8.2 Servicio de Firepit</a>
       </div>
     </div>
   </nav>
@@ -276,10 +289,10 @@ nav{padding:10px 0 30px;}
 <div class="page active" id="p-cover">
   <div class="cover-tag">Recepción</div>
   <h1 class="cover-title">Manual de<br>Recepción</h1>
-  <p class="cover-sub">Procedimientos operativos, organización del espacio físico, uso de AppSheet y estándares de atención para el personal de recepción del Residencial Aldea Mayab</p>
+  <p class="cover-sub">Procedimientos operativos, sistemas digitales, registro de llegadas, reservas de experiencias y estándares de atención para el personal de recepción del Residencial Aldea Mayab.</p>
   <div class="cover-meta">
     <div class="cover-meta-item"><div class="cover-meta-label">Código</div><div class="cover-meta-val">PR-AM-REC-001</div></div>
-    <div class="cover-meta-item"><div class="cover-meta-label">Versión</div><div class="cover-meta-val">1.0 · 2026</div></div>
+    <div class="cover-meta-item"><div class="cover-meta-label">Versión</div><div class="cover-meta-val">2.0 · 2026</div></div>
     <div class="cover-meta-item"><div class="cover-meta-label">Responsable</div><div class="cover-meta-val">Gerencia Administrativa</div></div>
   </div>
   <div class="cover-toc-grid" style="margin-top:24px;">
@@ -287,10 +300,21 @@ nav{padding:10px 0 30px;}
     <div class="toc-item" onclick="show('p-21')"><span class="toc-num">2.0</span><span class="toc-label">Espacio Físico</span></div>
     <div class="toc-item" onclick="show('p-31')"><span class="toc-num">3.0</span><span class="toc-label">Control de Accesos</span></div>
     <div class="toc-item" onclick="show('p-41')"><span class="toc-num">4.0</span><span class="toc-label">Huéspedes Airbnb</span></div>
-    <div class="toc-item" onclick="show('p-51')"><span class="toc-num">5.0</span><span class="toc-label">AppSheet</span></div>
+    <div class="toc-item" onclick="show('p-51')"><span class="toc-num">5.0</span><span class="toc-label">Sistemas Digitales</span></div>
     <div class="toc-item" onclick="show('p-61')"><span class="toc-num">6.0</span><span class="toc-label">Atención a Residentes</span></div>
     <div class="toc-item" onclick="show('p-71')"><span class="toc-num">7.0</span><span class="toc-label">Comunicación Oficial</span></div>
+    <div class="toc-item" onclick="show('p-81')"><span class="toc-num">8.0</span><span class="toc-label">Servicios y Reservas</span></div>
   </div>
+  <div class="sec-h"><div class="sec-num sec-num-g">✓</div><div class="sec-title">Fuente oficial por proceso</div></div>
+  <table class="act-table green">
+    <thead><tr><th>Proceso</th><th>Sistema oficial</th></tr></thead>
+    <tbody>
+      <tr><td>Llegadas, reglamento y firma del huésped</td><td><strong>Script de Registro de Llegadas</strong></td></tr>
+      <tr><td>Accesos, visitas y paquetería</td><td><strong>Vivook</strong></td></tr>
+      <tr><td>Tours, experiencias y vouchers</td><td><strong>Reservas Lagoona</strong></td></tr>
+      <tr><td>Cierre de turno, inventario e incidentes</td><td><strong>AppSheet</strong></td></tr>
+    </tbody>
+  </table>
   <div class="proc-footer"><span>PR-AM-REC-001 · Recepción · Portada</span><span>Confidencial — Residencial Aldea Mayab</span></div>
 </div>
 
@@ -312,13 +336,14 @@ nav{padding:10px 0 30px;}
   <table class="act-table green">
     <thead><tr><th style="width:220px">Función</th><th>Descripción</th></tr></thead>
     <tbody>
-      <tr><td><strong>Control de accesos</strong></td><td>Registrar en AppSheet toda entrada y salida de residentes, visitas, huéspedes y proveedores. Verificar identidad. Operar la barrera vehicular.</td></tr>
-      <tr><td><strong>Check-in / check-out huéspedes</strong></td><td>Recibir y despedir huéspedes de renta Airbnb/Vivook. Entregar brazaletes, explicar el reglamento básico, registrar en AppSheet.</td></tr>
+      <tr><td><strong>Control de accesos</strong></td><td>Validar y registrar en Vivook la entrada y salida de residentes, visitas, huéspedes y proveedores. Verificar identidad antes de operar la barrera vehicular.</td></tr>
+      <tr><td><strong>Check-in / check-out huéspedes</strong></td><td>Recibir y despedir huéspedes, verificar la reserva, completar el Registro de Llegadas, obtener la firma del reglamento y controlar la entrega y devolución de brazaletes.</td></tr>
       <tr><td><strong>Atención a residentes</strong></td><td>Recibir solicitudes, reportes y quejas. Canalizar al área correspondiente. Dar seguimiento en AppSheet.</td></tr>
-      <tr><td><strong>Manejo de paquetería</strong></td><td>Recibir, registrar, resguardar y notificar al residente la llegada de paquetes. Entregar contra firma.</td></tr>
+      <tr><td><strong>Manejo de paquetería</strong></td><td>Recibir, fotografiar, registrar y cerrar en Vivook cada paquete. Resguardar por unidad, notificar al residente y entregar contra identificación y firma.</td></tr>
+      <tr><td><strong>Reservas de experiencias</strong></td><td>Atender solicitudes de tours y firepit, verificar disponibilidad y condiciones, registrar la operación en el sistema correspondiente y entregar la confirmación o voucher.</td></tr>
       <tr><td><strong>Atención a proveedores</strong></td><td>Verificar identidad y orden de trabajo. Registrar entrada. Acompañar o coordinar con el área que solicitó el servicio.</td></tr>
       <tr><td><strong>Gestión del espacio físico</strong></td><td>Mantener la credenza organizada, controlar el inventario de bodega y reportar reposición de insumos con anticipación.</td></tr>
-      <tr><td><strong>Registro en AppSheet</strong></td><td>Todo evento del turno queda documentado en AppSheet antes de que ocurra la siguiente acción. Sin excepción.</td></tr>
+      <tr><td><strong>Registro digital</strong></td><td>Cada evento debe quedar en su sistema oficial: llegadas en el script, accesos y paquetes en Vivook, experiencias en Reservas Lagoona e incidentes en AppSheet.</td></tr>
     </tbody>
   </table>
 
@@ -339,7 +364,8 @@ nav{padding:10px 0 30px;}
   <ul class="checklist">
     <li><div class="check-box"></div><span><strong>Revisión del parte del turno anterior</strong> — Leer las novedades dejadas por el turno que cierra. Confirmar que entendiste cualquier situación pendiente.</span></li>
     <li><div class="check-box"></div><span><strong>Verificar AppSheet</strong> — Revisar que no hay registros pendientes de completar del turno anterior. Confirmar que el sistema carga correctamente.</span></li>
-    <li><div class="check-box"></div><span><strong>Revisar agenda del día</strong> — Consultar en Vivook / AppSheet los check-ins y check-outs programados para el turno. Identificar proveedores agendados.</span></li>
+    <li><div class="check-box"></div><span><strong>Revisar agenda del día</strong> — Abrir el Script de Registro de Llegadas y consultar las entradas y salidas programadas. Revisar en Vivook las visitas, proveedores y paquetes pendientes.</span></li>
+    <li><div class="check-box"></div><span><strong>Revisar Reservas Lagoona</strong> — Identificar tours, vouchers o servicios de firepit pendientes de confirmar o realizar durante el turno.</span></li>
     <li><div class="check-box"></div><span><strong>Verificar paquetería pendiente</strong> — Confirmar que los paquetes en resguardo están registrados y que sus notificaciones al residente fueron enviadas.</span></li>
     <li><div class="check-box"></div><span><strong>Estado de la credenza</strong> — Superficie limpia y despejada. Cajones cerrados. Impresora con papel y tinta.</span></li>
     <li><div class="check-box"></div><span><strong>Revisión rápida de bodega</strong> — Confirmar que los insumos de uso diario están en su lugar. Reportar faltantes si los hay.</span></li>
@@ -357,9 +383,10 @@ nav{padding:10px 0 30px;}
 
   <div class="sec-h"><div class="sec-num sec-num-g">1</div><div class="sec-title">Checklist de Cierre</div></div>
   <ul class="checklist">
-    <li><div class="check-box"></div><span><strong>Completar todos los registros en AppSheet</strong> — Ningún evento del turno puede quedar sin registrar al momento del cierre. Accesos, paquetería, incidentes, solicitudes.</span></li>
+    <li><div class="check-box"></div><span><strong>Completar todos los registros digitales</strong> — Ningún evento puede quedar pendiente: llegadas en el script, accesos y paquetes en Vivook, experiencias en Reservas Lagoona e incidentes en AppSheet.</span></li>
     <li><div class="check-box"></div><span><strong>Redactar parte de novedades</strong> — En AppSheet, dejar nota de cualquier situación pendiente, instrucción especial o información relevante para el turno siguiente.</span></li>
-    <li><div class="check-box"></div><span><strong>Paquetería</strong> — Confirmar que todos los paquetes recibidos están registrados y que se notificó al residente correspondiente.</span></li>
+    <li><div class="check-box"></div><span><strong>Paquetería</strong> — Confirmar en Vivook que todos los paquetes recibidos tienen fotografía, destinatario, ubicación de resguardo y notificación enviada.</span></li>
+    <li><div class="check-box"></div><span><strong>Servicios y reservas</strong> — Verificar que tours y firepit del día estén confirmados, documentados y entregados al turno siguiente si continúan pendientes.</span></li>
     <li><div class="check-box"></div><span><strong>Orden de la credenza</strong> — Dejar la superficie despejada y limpia. Cajones cerrados. Impresora lista.</span></li>
     <li><div class="check-box"></div><span><strong>Bodega</strong> — Cerrar la bodega con llave. Verificar que no hay productos fuera de su lugar.</span></li>
     <li><div class="check-box"></div><span><strong>Briefing de entrega</strong> — Informar verbalmente al turno entrante sobre las novedades del día y los pendientes. No salir hasta confirmar que quien recibe entendió todo.</span></li>
@@ -373,8 +400,8 @@ nav{padding:10px 0 30px;}
       <tr><td>Huésped con check-in pendiente que no ha llegado</td><td>Gerencia + propietario de la unidad</td></tr>
       <tr><td>Proveedor que ingresó y no ha salido</td><td>Gerencia + Jefe de Mantenimiento</td></tr>
       <tr><td>Incidente sin resolución documentada</td><td>Gerencia Administrativa</td></tr>
-      <tr><td>Paquete que llegó y el residente no responde</td><td>Dejar nota en AppSheet y bodega con etiqueta</td></tr>
-      <tr><td>Falla de AppSheet o sistema sin registros</td><td>Gerencia + registrar en bitácora física de respaldo</td></tr>
+      <tr><td>Paquete que llegó y el residente no responde</td><td>Dejar seguimiento en Vivook y conservarlo etiquetado en el área de resguardo</td></tr>
+      <tr><td>Falla de cualquier sistema digital</td><td>Notificar a Gerencia, usar la bitácora física de respaldo y capturar los datos cuando se restablezca</td></tr>
     </tbody>
   </table>
   <div class="proc-footer"><span>PR-AM-REC-001 · 1.3</span><span>Confidencial — Residencial Aldea Mayab</span></div>
@@ -402,7 +429,7 @@ nav{padding:10px 0 30px;}
   <table class="act-table green">
     <thead><tr><th style="width:160px">Espacio</th><th>Contenido asignado</th><th style="width:180px">Acceso</th></tr></thead>
     <tbody>
-      <tr><td><strong>Puerta izquierda</strong></td><td>Resguardo de paquetería pequeña (sobres, cajas hasta 30 cm). Cada paquete con etiqueta: nombre del residente, unidad, fecha de recepción, número de registro AppSheet.</td><td>Llave en cajón 1</td></tr>
+      <tr><td><strong>Puerta izquierda</strong></td><td>Resguardo de paquetería pequeña (sobres, cajas hasta 30 cm). Cada paquete con etiqueta: nombre del residente, unidad, fecha de recepción y referencia de Vivook.</td><td>Llave en cajón 1</td></tr>
       <tr><td><strong>Puerta derecha</strong></td><td>Archivero activo: carpeta de bitácoras físicas de respaldo (modo offline), carpeta de acuses de paquetería firmados, carpeta de incidentes del mes en curso.</td><td>Libre</td></tr>
     </tbody>
   </table>
@@ -422,7 +449,7 @@ nav{padding:10px 0 30px;}
     <thead><tr><th>Objeto permitido</th><th>Condición</th></tr></thead>
     <tbody>
       <tr><td>Impresora Canon</td><td>Posición fija. Con papel. Conectada siempre.</td></tr>
-      <tr><td>Tablet / dispositivo AppSheet</td><td>En su soporte o cargando. Nunca tirado sobre la superficie.</td></tr>
+      <tr><td>Tablet de sistemas digitales</td><td>En su soporte o cargando. Con acceso al Registro de Llegadas, Vivook, AppSheet y Reservas Lagoona.</td></tr>
       <tr><td>Paquete recién recibido</td><td>Máximo 10 minutos antes de registrar y guardar en módulo central.</td></tr>
       <tr><td>Cualquier otro objeto</td><td>No permitido de forma permanente.</td></tr>
     </tbody>
@@ -478,8 +505,8 @@ nav{padding:10px 0 30px;}
   <div class="sec-h"><div class="sec-num sec-num-g">1</div><div class="sec-title">Acceso de Residentes</div></div>
   <ul class="steps">
     <li><div class="step-num">1</div><span><strong>Identificar al residente</strong> — Confirmar identidad ya sea por tarjeta de acceso, reconocimiento de cara registrada en sistema o identificación oficial.</span></li>
-    <li><div class="step-num">2</div><span><strong>Verificar estatus en AppSheet</strong> — Confirmar que el residente no tiene restricción activa por adeudo. Si hay restricción, no permitir el acceso a amenidades y notificar a Gerencia. El acceso a su propia unidad nunca se bloquea.</span></li>
-    <li><div class="step-num">3</div><span><strong>Registrar en AppSheet</strong> — Hora de entrada, nombre, unidad, número de personas. Para vehículos: placa y cajón asignado.</span></li>
+    <li><div class="step-num">2</div><span><strong>Verificar estatus en Vivook</strong> — Confirmar que el residente no tiene restricción activa. Si hay restricción de amenidades, notificar a Gerencia. El acceso a su propia unidad nunca se bloquea.</span></li>
+    <li><div class="step-num">3</div><span><strong>Registrar en Vivook</strong> — Hora de entrada, nombre, unidad y número de personas. Para vehículos: placa y cajón asignado.</span></li>
     <li><div class="step-num">4</div><span><strong>Operar la barrera</strong> — Solo después del registro. Nunca antes.</span></li>
   </ul>
 
@@ -487,16 +514,16 @@ nav{padding:10px 0 30px;}
   <ul class="steps">
     <li><div class="step-num">1</div><span><strong>Solicitar identificación</strong> — INE o pasaporte. No se aceptan identificaciones vencidas.</span></li>
     <li><div class="step-num">2</div><span><strong>Confirmar con el residente anfitrión</strong> — Llamar o enviar mensaje al residente para confirmar que espera la visita. Si el residente no responde en 3 minutos, la visita espera en recepción.</span></li>
-    <li><div class="step-num">3</div><span><strong>Registrar en AppSheet</strong> — Nombre completo, identificación (tipo y número), hora de entrada, unidad que visita, nombre del residente anfitrión y número de personas.</span></li>
+    <li><div class="step-num">3</div><span><strong>Registrar o validar el pase en Vivook</strong> — Nombre completo, identificación, vigencia, unidad que visita, residente anfitrión y número de personas.</span></li>
     <li><div class="step-num">4</div><span><strong>Entregar pase de visita</strong> — Pase temporal que la visita porta visible durante su estancia.</span></li>
-    <li><div class="step-num">5</div><span><strong>Registrar salida</strong> — Al retirarse, registrar hora de salida en AppSheet y recoger el pase.</span></li>
+    <li><div class="step-num">5</div><span><strong>Registrar salida</strong> — Al retirarse, cerrar la visita en Vivook y recoger el pase físico si se utilizó.</span></li>
   </ul>
 
   <div class="sec-h"><div class="sec-num sec-num-a">3</div><div class="sec-title">Situaciones Especiales</div></div>
   <table class="act-table amber">
     <thead><tr><th>Situación</th><th>Acción</th></tr></thead>
     <tbody>
-      <tr><td>Visita que el residente no autorizó</td><td>Pedir que espere en recepción. Contactar al residente. Si no autoriza o no contesta, no dar acceso. Registrar el intento en AppSheet.</td></tr>
+      <tr><td>Visita que el residente no autorizó</td><td>Pedir que espere en recepción. Contactar al residente. Si no autoriza o no contesta, no dar acceso. Registrar el intento en Vivook.</td></tr>
       <tr><td>Persona que insiste en entrar sin autorización</td><td>Mantener la calma. No confrontar. Llamar a Gerencia. Si hay amenaza, activar protocolo de seguridad (Libro III · 2.2).</td></tr>
       <tr><td>Residente con adeudo que quiere acceder a amenidades</td><td>Informar con discreción que hay una restricción administrativa y pedir que contacte a Gerencia. No dar detalles del adeudo frente a otras personas.</td></tr>
       <tr><td>Grupo de visitas mayor a 6 personas</td><td>Requiere autorización previa de Gerencia. Si llegan sin autorización, solo pueden entrar hasta 6 personas. Notificar a Gerencia inmediatamente.</td></tr>
@@ -513,10 +540,10 @@ nav{padding:10px 0 30px;}
 
   <div class="sec-h"><div class="sec-num sec-num-g">1</div><div class="sec-title">Procedimiento de Acceso</div></div>
   <ul class="steps">
-    <li><div class="step-num">1</div><span><strong>Verificar que el proveedor está agendado</strong> — Consultar en AppSheet si hay una orden de trabajo o cita registrada para ese proveedor en ese día y hora. Si no está agendado, no dar acceso automático.</span></li>
+    <li><div class="step-num">1</div><span><strong>Verificar que el proveedor está agendado</strong> — Consultar en Vivook si existe un pase u autorización vigente para ese día y hora. Si no está agendado, no dar acceso automático.</span></li>
     <li><div class="step-num">2</div><span><strong>Confirmar con el área solicitante</strong> — Si el proveedor no está en agenda, llamar al residente o al jefe del área que solicitó el servicio para confirmar. Si no se puede confirmar, el proveedor espera.</span></li>
     <li><div class="step-num">3</div><span><strong>Solicitar identificación y orden de trabajo</strong> — INE o identificación de la empresa. Número de orden o folio de la solicitud. Empresa y nombre del técnico.</span></li>
-    <li><div class="step-num">4</div><span><strong>Registrar en AppSheet</strong> — Nombre, empresa, motivo, área a la que accede, hora de entrada.</span></li>
+    <li><div class="step-num">4</div><span><strong>Registrar en Vivook</strong> — Nombre, empresa, motivo, área autorizada, hora de entrada y vehículo cuando aplique.</span></li>
     <li><div class="step-num">5</div><span><strong>Acompañamiento obligatorio</strong> — El proveedor no camina solo por las instalaciones. Recepción coordina que alguien del área correspondiente lo reciba y acompañe.</span></li>
     <li><div class="step-num">6</div><span><strong>Registrar salida</strong> — Al terminar el trabajo, registrar hora de salida y confirmar con el área solicitante que el servicio quedó completo.</span></li>
   </ul>
@@ -544,7 +571,7 @@ nav{padding:10px 0 30px;}
 
   <div class="sec-h"><div class="sec-num sec-num-g">1</div><div class="sec-title">Preparación Previa al Check-in</div></div>
   <ul class="steps">
-    <li><div class="step-num">1</div><span><strong>Consultar reservas del día desde la apertura del turno</strong> — En AppSheet, revisar todos los check-ins programados. Identificar la unidad, número de huéspedes, nombre del huésped principal y hora estimada de llegada.</span></li>
+    <li><div class="step-num">1</div><span><strong>Consultar llegadas del día desde la apertura del turno</strong> — En el Script de Registro de Llegadas, identificar unidad, huésped principal, número de personas, fechas y hora estimada.</span></li>
     <li><div class="step-num">2</div><span><strong>Verificar estatus del propietario</strong> — Confirmar que el propietario de la unidad no tiene adeudo activo que restrinja el registro de huéspedes (Libro I · 2.4.3).</span></li>
     <li><div class="step-num">3</div><span><strong>Preparar brazaletes</strong> — Separar el número de brazaletes que corresponden al grupo (adultos + niños según corresponda).</span></li>
     <li><div class="step-num">4</div><span><strong>Confirmar que la unidad está lista</strong> — Coordinar con limpieza o el propietario que la unidad fue habilitada para la llegada.</span></li>
@@ -553,11 +580,11 @@ nav{padding:10px 0 30px;}
   <div class="sec-h"><div class="sec-num sec-num-g">2</div><div class="sec-title">Procedimiento de Check-in</div></div>
   <ul class="steps">
     <li><div class="step-num">1</div><span><strong>Recibir al huésped con saludo cálido</strong> — "Bienvenido a Aldea Mayab" y presentarse por nombre. Primera impresión = primera experiencia del residencial.</span></li>
-    <li><div class="step-num">2</div><span><strong>Verificar identidad</strong> — Solicitar identificación oficial del huésped principal. Confirmar que coincide con el nombre en la reserva de Vivook.</span></li>
-    <li><div class="step-num">3</div><span><strong>Registrar en AppSheet</strong> — Nombre del huésped principal, número de adultos, número de niños, plataforma de origen (Airbnb / Vivook / directo), unidad asignada, fecha de check-in y check-out programado.</span></li>
+    <li><div class="step-num">2</div><span><strong>Verificar identidad</strong> — Solicitar identificación oficial del huésped principal y confirmar que coincide con el Registro de Llegadas.</span></li>
+    <li><div class="step-num">3</div><span><strong>Completar el Registro de Llegadas</strong> — Confirmar adultos, menores, unidad, fechas y WhatsApp; seleccionar idioma y solicitar la firma del reglamento en la tablet.</span></li>
     <li><div class="step-num">4</div><span><strong>Entregar brazaletes</strong> — Un brazalete por persona. Explicar que el brazalete es el identificador de acceso a amenidades durante su estancia. Sin brazalete, sin acceso.</span></li>
     <li><div class="step-num">5</div><span><strong>Briefing de bienvenida (2 minutos)</strong> — Explicar brevemente: horarios de amenidades, reglas básicas de convivencia, número de emergencia del residencial, cómo llegar a su unidad.</span></li>
-    <li><div class="step-num">6</div><span><strong>Registrar brazaletes entregados en AppSheet</strong> — Cantidad exacta entregada. Esto es clave para el check-out.</span></li>
+    <li><div class="step-num">6</div><span><strong>Registrar brazaletes entregados</strong> — Guardar la cantidad exacta en el Registro de Llegadas. Esto es clave para el check-out.</span></li>
   </ul>
 
   <div class="sec-h"><div class="sec-num sec-num-a">3</div><div class="sec-title">Briefing de Bienvenida — Puntos Obligatorios</div></div>
@@ -584,8 +611,8 @@ nav{padding:10px 0 30px;}
   <ul class="steps">
     <li><div class="step-num">1</div><span><strong>Verificar la hora de check-out programada</strong> — Desde la apertura del turno, identificar los check-outs del día para estar preparados.</span></li>
     <li><div class="step-num">2</div><span><strong>Recibir al huésped en recepción</strong> — Saludar y preguntar cómo estuvo su estancia. Actitud amable hasta el final.</span></li>
-    <li><div class="step-num">3</div><span><strong>Recuperar todos los brazaletes</strong> — Contar los brazaletes recibidos y verificar que coinciden con los registrados en el check-in. Si falta alguno, notificar al propietario y registrar en AppSheet.</span></li>
-    <li><div class="step-num">4</div><span><strong>Registrar check-out en AppSheet</strong> — Hora real de salida, número de brazaletes devueltos, observaciones si las hay.</span></li>
+    <li><div class="step-num">3</div><span><strong>Recuperar todos los brazaletes</strong> — Contar los brazaletes recibidos y compararlos con el Registro de Llegadas. Si falta alguno, notificar al propietario.</span></li>
+    <li><div class="step-num">4</div><span><strong>Cerrar la llegada</strong> — Registrar hora real de salida, brazaletes devueltos y observaciones en el sistema de llegadas.</span></li>
     <li><div class="step-num">5</div><span><strong>Notificar al propietario o limpieza</strong> — Informar que la unidad está disponible para limpieza / habilitación para la siguiente reserva.</span></li>
     <li><div class="step-num">6</div><span><strong>Despedida</strong> — "Fue un placer tenerlos. Los esperamos pronto en Aldea Mayab."</span></li>
   </ul>
@@ -595,7 +622,7 @@ nav{padding:10px 0 30px;}
     <thead><tr><th>Situación</th><th>Acción</th></tr></thead>
     <tbody>
       <tr><td>Huésped sale fuera del horario (tarde o muy temprano)</td><td>Registrar hora real. Si sale antes de la apertura del turno, el turno anterior debe haber dejado nota en AppSheet y la barrera se coordina con seguridad.</td></tr>
-      <tr><td>Brazalete perdido</td><td>Registrar en AppSheet como "brazalete no recuperado". Notificar al propietario. El costo del brazalete lo define Gerencia.</td></tr>
+      <tr><td>Brazalete perdido</td><td>Registrar como "brazalete no recuperado" en la llegada. Notificar al propietario. El costo del brazalete lo define Gerencia.</td></tr>
       <tr><td>Huésped reporta daño en la unidad</td><td>Escuchar, documentar en AppSheet con detalle y fotos si es posible. No hacer juicios. Notificar al propietario de inmediato.</td></tr>
       <tr><td>Huésped no se presenta al check-out</td><td>Llamar a la unidad. Si no responde en 30 minutos pasada la hora, notificar a Gerencia y al propietario.</td></tr>
     </tbody>
@@ -603,48 +630,45 @@ nav{padding:10px 0 30px;}
   <div class="proc-footer"><span>PR-AM-REC-001 · 4.2</span><span>Confidencial — Residencial Aldea Mayab</span></div>
 </div>
 
-<!-- ══ 5.1 APPSHEET RESERVAS ══ -->
+<!-- ══ 5.1 REGISTRO DE LLEGADAS ══ -->
 <div class="page" id="p-51">
-  <div class="proc-eyebrow">5.0 AppSheet · 5.1</div>
-  <h1 class="proc-title">5.1 AppSheet — Bitácora de Reservas</h1>
-  <p class="proc-subtitle">Cómo registrar y consultar reservas de huéspedes en el módulo de Bitácora de Reservas</p>
+  <div class="proc-eyebrow">5.0 Sistemas Digitales · 5.1</div>
+  <h1 class="proc-title">5.1 Script de Registro de Llegadas</h1>
+  <p class="proc-subtitle">Consulta de llegadas, validación de huéspedes, aceptación del reglamento y cierre del registro.</p>
 
-  <div class="alert a-green"><div class="alert-icon"></div><div class="alert-body"><strong>AppSheet es la fuente de verdad</strong>Todo lo que ocurre en recepción existe en AppSheet. Si no está registrado, no ocurrió. En caso de falla del sistema, usar la bitácora física de respaldo y trasladar los registros a AppSheet en cuanto se restablezca.</div></div>
+  <div class="alert a-green"><div class="alert-icon"></div><div class="alert-body"><strong>Fuente oficial de las llegadas</strong>El Script de Registro de Llegadas sustituye la antigua bitácora de reservas de AppSheet. No crear un segundo registro para el mismo huésped. Si el sistema está fuera de línea, usar el formato físico y capturarlo en cuanto se restablezca.</div></div>
 
-  <div class="sec-h"><div class="sec-num sec-num-g">1</div><div class="sec-title">Campos del Módulo — Bitácora de Reservas</div></div>
+  <div class="sec-h"><div class="sec-num sec-num-g">1</div><div class="sec-title">Antes de la llegada</div></div>
+  <ul class="steps">
+    <li><div class="step-num">1</div><span>Abrir el <strong>Registro de Llegadas</strong> desde la tablet de recepción y confirmar que el sistema carga correctamente.</span></li>
+    <li><div class="step-num">2</div><span>Revisar las llegadas del día e identificar <strong>huésped principal, unidad, fechas de estancia y cantidad de personas</strong>.</span></li>
+    <li><div class="step-num">3</div><span>Confirmar con limpieza o con el responsable de la unidad que el alojamiento está listo. El registro no sustituye esta confirmación operativa.</span></li>
+    <li><div class="step-num">4</div><span>Preparar la cantidad de brazaletes indicada para el grupo.</span></li>
+  </ul>
+
+  <div class="sec-h"><div class="sec-num sec-num-g">2</div><div class="sec-title">Registro al recibir al huésped</div></div>
   <table class="act-table green">
-    <thead><tr><th style="width:200px">Campo</th><th>Qué registrar</th><th style="width:120px">Obligatorio</th></tr></thead>
+    <thead><tr><th style="width:210px">Dato o acción</th><th>Validación requerida</th></tr></thead>
     <tbody>
-      <tr><td><strong>Marca temporal</strong></td><td>Se llena automáticamente al crear el registro</td><td><span class="badge badge-g">Automático</span></td></tr>
-      <tr><td><strong>Nombre Huésped Principal</strong></td><td>Nombre completo tal como aparece en la identificación</td><td><span class="badge badge-r">Sí</span></td></tr>
-      <tr><td><strong>Plataforma origen</strong></td><td>Airbnb / Vivook / Directo / Otro</td><td><span class="badge badge-r">Sí</span></td></tr>
-      <tr><td><strong>Torre / Departamento</strong></td><td>Identificador de la unidad (ej. Chak 502)</td><td><span class="badge badge-r">Sí</span></td></tr>
-      <tr><td><strong>Fecha Check-in</strong></td><td>Fecha de llegada programada</td><td><span class="badge badge-r">Sí</span></td></tr>
-      <tr><td><strong>Fecha Check-out</strong></td><td>Fecha de salida programada</td><td><span class="badge badge-r">Sí</span></td></tr>
-      <tr><td><strong>Total Adultos</strong></td><td>Número de adultos del grupo</td><td><span class="badge badge-r">Sí</span></td></tr>
-      <tr><td><strong>Total Niños</strong></td><td>Número de menores. Cero si no hay.</td><td><span class="badge badge-r">Sí</span></td></tr>
-      <tr><td><strong>Status Unidad</strong></td><td>Se actualiza automáticamente vía LOOKUP con el status de Vivook</td><td><span class="badge badge-g">Automático</span></td></tr>
-      <tr><td><strong># Brazaletes Entregados</strong></td><td>Cantidad exacta de brazaletes entregados en el check-in</td><td><span class="badge badge-r">Sí — en check-in</span></td></tr>
+      <tr><td><strong>Reserva</strong></td><td>Buscar por nombre o unidad y comprobar fechas de entrada y salida.</td></tr>
+      <tr><td><strong>Identidad</strong></td><td>La identificación oficial debe coincidir con el huésped principal registrado.</td></tr>
+      <tr><td><strong>Ocupación</strong></td><td>Confirmar adultos, menores y total de huéspedes. Corregir el registro si la información cambió.</td></tr>
+      <tr><td><strong>WhatsApp</strong></td><td>Capturar el número al que se enviará la constancia o reglamento.</td></tr>
+      <tr><td><strong>Idioma</strong></td><td>Seleccionar español o inglés antes de mostrar el reglamento.</td></tr>
+      <tr><td><strong>Reglamento</strong></td><td>El huésped debe leer, aceptar y firmar en la tablet. La firma no debe llenarla el personal.</td></tr>
+      <tr><td><strong>Brazaletes</strong></td><td>Registrar la cantidad exacta entregada.</td></tr>
     </tbody>
   </table>
 
-  <div class="sec-h"><div class="sec-num sec-num-g">2</div><div class="sec-title">Flujo en AppSheet — Check-in</div></div>
+  <div class="sec-h"><div class="sec-num sec-num-a">3</div><div class="sec-title">Envío y verificación final</div></div>
   <ul class="steps">
-    <li><div class="step-num">1</div><span>Abrir AppSheet → módulo <strong>Bitácora de Reservas</strong></span></li>
-    <li><div class="step-num">2</div><span>Tocar el botón <strong>"+ Nueva Reserva"</strong></span></li>
-    <li><div class="step-num">3</div><span>Completar todos los campos marcados como obligatorios</span></li>
-    <li><div class="step-num">4</div><span>En el campo <strong># Brazaletes Entregados</strong> — ingresar la cantidad exacta al momento de la entrega física</span></li>
-    <li><div class="step-num">5</div><span>Tocar <strong>Guardar</strong> — verificar que el registro aparece en la lista</span></li>
+    <li><div class="step-num step-num-a">1</div><span>Pulsar <strong>Enviar registro</strong> una sola vez y esperar a que finalice el indicador de procesamiento.</span></li>
+    <li><div class="step-num step-num-a">2</div><span>Comprobar que el sistema muestre confirmación de guardado y que el registro aparezca como completado.</span></li>
+    <li><div class="step-num step-num-a">3</div><span>Verificar el envío de la constancia o reglamento por WhatsApp. Si falla, informar a Gerencia y no duplicar el registro.</span></li>
+    <li><div class="step-num step-num-a">4</div><span>Dar el briefing de bienvenida y permitir el acceso sólo después de completar la validación.</span></li>
   </ul>
 
-  <div class="sec-h"><div class="sec-num sec-num-a">3</div><div class="sec-title">Flujo en AppSheet — Check-out</div></div>
-  <ul class="steps">
-    <li><div class="step-num">1</div><span>Buscar el registro del huésped por nombre o unidad</span></li>
-    <li><div class="step-num">2</div><span>Abrir el registro y tocar <strong>Editar</strong></span></li>
-    <li><div class="step-num">3</div><span>Actualizar el campo de Status a <strong>"Check-out realizado"</strong></span></li>
-    <li><div class="step-num">4</div><span>Registrar hora real de salida y brazaletes recuperados</span></li>
-    <li><div class="step-num">5</div><span>Guardar</span></li>
-  </ul>
+  <div class="alert a-amber"><div class="alert-icon"></div><div class="alert-body"><strong>No inventar ni completar datos por el huésped</strong>Si faltan personas, fechas, unidad o firma, detener el proceso y solicitar la corrección al responsable de la reserva. Ante una diferencia de ocupación, escalar antes de entregar brazaletes adicionales.</div></div>
   <div class="proc-footer"><span>PR-AM-REC-001 · 5.1</span><span>Confidencial — Residencial Aldea Mayab</span></div>
 </div>
 
@@ -677,9 +701,9 @@ nav{padding:10px 0 30px;}
 
 <!-- ══ 5.3 CONTROL DE ACCESOS ══ -->
 <div class="page" id="p-53">
-  <div class="proc-eyebrow">5.0 AppSheet · 5.3</div>
-  <h1 class="proc-title">5.3 AppSheet — Control de Accesos</h1>
-  <p class="proc-subtitle">Registro digital de entradas y salidas de residentes, visitas y vehículos</p>
+  <div class="proc-eyebrow">5.0 Sistemas Digitales · 5.3</div>
+  <h1 class="proc-title">5.3 Vivook — Control de Accesos</h1>
+  <p class="proc-subtitle">Validación y registro digital de residentes, visitas, huéspedes, proveedores y vehículos.</p>
 
   <div class="sec-h"><div class="sec-num sec-num-g">1</div><div class="sec-title">Campos del Módulo</div></div>
   <table class="act-table green">
@@ -702,29 +726,13 @@ nav{padding:10px 0 30px;}
   <div class="proc-footer"><span>PR-AM-REC-001 · 5.3</span><span>Confidencial — Residencial Aldea Mayab</span></div>
 </div>
 
-<!-- ══ 5.4 PAQUETERÍA E INCIDENTES ══ -->
+<!-- ══ 5.4 INCIDENTES ══ -->
 <div class="page" id="p-54">
-  <div class="proc-eyebrow">5.0 AppSheet · 5.4</div>
-  <h1 class="proc-title">5.4 AppSheet — Paquetería e Incidentes</h1>
-  <p class="proc-subtitle">Registro de paquetes recibidos y documentación de incidentes en AppSheet</p>
+  <div class="proc-eyebrow">5.0 Sistemas Digitales · 5.4</div>
+  <h1 class="proc-title">5.4 AppSheet — Incidentes</h1>
+  <p class="proc-subtitle">Documentación de incidentes, acciones tomadas y seguimiento operativo.</p>
 
-  <div class="sec-h"><div class="sec-num sec-num-g">1</div><div class="sec-title">Módulo de Paquetería</div></div>
-  <table class="act-table green">
-    <thead><tr><th style="width:200px">Campo</th><th>Qué registrar</th></tr></thead>
-    <tbody>
-      <tr><td><strong>Fecha y hora de recepción</strong></td><td>Momento exacto en que llegó el paquete</td></tr>
-      <tr><td><strong>Destinatario</strong></td><td>Nombre del residente y número de unidad</td></tr>
-      <tr><td><strong>Remitente / Paquetería</strong></td><td>Empresa que entrega (DHL, FedEx, Amazon, etc.)</td></tr>
-      <tr><td><strong>Descripción</strong></td><td>Tamaño aproximado, número de bultos, condición del empaque</td></tr>
-      <tr><td><strong>Número de guía</strong></td><td>Si viene visible en la etiqueta</td></tr>
-      <tr><td><strong>Ubicación de resguardo</strong></td><td>Módulo central de credenza / bodega</td></tr>
-      <tr><td><strong>Notificación al residente</strong></td><td>Marcar cuando se envió el WhatsApp de aviso</td></tr>
-      <tr><td><strong>Fecha y hora de entrega</strong></td><td>Cuando el residente lo recoge</td></tr>
-      <tr><td><strong>Firma de recibido</strong></td><td>Nombre del residente que recogió (foto si es posible)</td></tr>
-    </tbody>
-  </table>
-
-  <div class="sec-h"><div class="sec-num sec-num-g">2</div><div class="sec-title">Módulo de Incidentes</div></div>
+  <div class="sec-h"><div class="sec-num sec-num-g">1</div><div class="sec-title">Módulo de Incidentes</div></div>
   <table class="act-table green">
     <thead><tr><th style="width:200px">Campo</th><th>Qué registrar</th></tr></thead>
     <tbody>
@@ -753,7 +761,7 @@ nav{padding:10px 0 30px;}
     <tbody>
       <tr><td>Falla en la unidad (electricidad, plomería, AC)</td><td>Registrar en AppSheet. Notificar al Jefe de Mantenimiento.</td><td>Mantenimiento</td></tr>
       <tr><td>Queja de ruido de vecino</td><td>Registrar en AppSheet. Llamar a la unidad señalada con discreción.</td><td>Gerencia si persiste</td></tr>
-      <tr><td>Paquete no recibido</td><td>Revisar en AppSheet si está registrado. Buscar en bodega.</td><td>Recepción resuelve</td></tr>
+      <tr><td>Paquete no recibido</td><td>Revisar el historial en Vivook, la fotografía y la ubicación de resguardo.</td><td>Recepción resuelve</td></tr>
       <tr><td>Solicitud de información (horarios, reglamento)</td><td>Atender directamente con la información del manual.</td><td>Recepción resuelve</td></tr>
       <tr><td>Queja formal contra administración o personal</td><td>Escuchar con atención. No defender ni juzgar. Registrar.</td><td>Gerencia Administrativa</td></tr>
       <tr><td>Solicitud de autorización (obras, evento, visita masiva)</td><td>No autorizar. Tomar datos y canalizar.</td><td>Gerencia Administrativa</td></tr>
@@ -773,24 +781,37 @@ nav{padding:10px 0 30px;}
   <div class="proc-footer"><span>PR-AM-REC-001 · 6.1</span><span>Confidencial — Residencial Aldea Mayab</span></div>
 </div>
 
-<!-- ══ 6.2 PAQUETERÍA ══ -->
+<!-- ══ 6.2 PAQUETERÍA EN VIVOOK ══ -->
 <div class="page" id="p-62">
   <div class="proc-eyebrow">6.0 Atención · 6.2</div>
-  <h1 class="proc-title">6.2 Paquetería</h1>
-  <p class="proc-subtitle">Recepción, resguardo, notificación y entrega de paquetes de residentes</p>
+  <h1 class="proc-title">6.2 Recepción de Paquetes en Vivook</h1>
+  <p class="proc-subtitle">Recepción, evidencia fotográfica, registro, resguardo, notificación y entrega de paquetes.</p>
+
+  <div class="alert a-green"><div class="alert-icon"></div><div class="alert-body"><strong>Vivook es la fuente oficial de paquetería</strong>Todo paquete recibido debe tener registro en Vivook y fotografía legible de la etiqueta antes de guardarse. No sustituir este registro con un mensaje de WhatsApp.</div></div>
 
   <div class="sec-h"><div class="sec-num sec-num-g">1</div><div class="sec-title">Procedimiento Completo</div></div>
   <ul class="steps">
-    <li><div class="step-num">1</div><span><strong>Recibir el paquete del delivery</strong> — Verificar que la dirección corresponde a Aldea Mayab y que el nombre está legible. Firmar el acuse del paquetero.</span></li>
-    <li><div class="step-num">2</div><span><strong>Inspección visual</strong> — Revisar que el empaque no tenga daño visible. Si tiene daño, fotografiar antes de firmar y anotar la observación.</span></li>
-    <li><div class="step-num">3</div><span><strong>Registrar en AppSheet</strong> — Completar todos los campos del módulo de paquetería inmediatamente.</span></li>
-    <li><div class="step-num">4</div><span><strong>Etiquetar el paquete</strong> — Pegar etiqueta con: nombre del residente, unidad, fecha de recepción y número de registro AppSheet.</span></li>
-    <li><div class="step-num">5</div><span><strong>Guardar en módulo central de credenza</strong> — Paquetes pequeños en el compartimento asignado. Paquetes grandes que no caben, en la bodega, siempre etiquetados.</span></li>
-    <li><div class="step-num">6</div><span><strong>Notificar al residente por WhatsApp</strong> — "Hola [nombre], llegó un paquete para ti en recepción. Puedes recogerlo cuando gustes en nuestro horario de 10:00 a 18:00."</span></li>
-    <li><div class="step-num">7</div><span><strong>Entrega al residente</strong> — Verificar identidad. Dar el paquete. Registrar en AppSheet: hora de entrega y nombre de quien recogió.</span></li>
+    <li><div class="step-num">1</div><span><strong>Verificar destinatario y dirección</strong> — Confirmar que el paquete corresponde a Aldea Mayab y que se puede identificar al residente y su unidad. Si faltan datos, no adivinar; consultar antes de aceptar.</span></li>
+    <li><div class="step-num">2</div><span><strong>Inspección visual</strong> — Revisar el estado del empaque. Si hay daño, humedad o apertura, fotografiarlo antes de firmar y anotarlo en el registro.</span></li>
+    <li><div class="step-num">3</div><span><strong>Tomar fotografía de la etiqueta</strong> — La guía, nombre y datos visibles deben quedar legibles. Evitar fotografiar información ajena al paquete.</span></li>
+    <li><div class="step-num">4</div><span><strong>Registrar en Vivook</strong> — Abrir Paquetería, seleccionar la unidad, capturar empresa de mensajería, número de guía, cantidad de bultos, condición y fotografía.</span></li>
+    <li><div class="step-num">5</div><span><strong>Resguardar y etiquetar</strong> — Paquetes pequeños en el módulo central; paquetes grandes en bodega. Anotar unidad, fecha y referencia de Vivook. La fotografía de respaldo se conserva en la carpeta <strong>PAQUETES</strong>.</span></li>
+    <li><div class="step-num">6</div><span><strong>Notificar al residente</strong> — Confirmar que Vivook emitió el aviso. Si la notificación no se genera, enviar WhatsApp y anotarlo en el registro.</span></li>
+    <li><div class="step-num">7</div><span><strong>Entregar y cerrar</strong> — Verificar identidad, obtener firma de recibido y marcar el paquete como entregado en Vivook con fecha, hora y nombre de quien recogió.</span></li>
   </ul>
 
-  <div class="sec-h"><div class="sec-num sec-num-a">2</div><div class="sec-title">Paquetes sin Reclamar</div></div>
+  <div class="sec-h"><div class="sec-num sec-num-a">2</div><div class="sec-title">Casos especiales</div></div>
+  <table class="act-table amber">
+    <thead><tr><th>Situación</th><th>Acción</th></tr></thead>
+    <tbody>
+      <tr><td>Paquete dañado</td><td>Fotografiar, registrar la condición y avisar al residente antes de la entrega.</td></tr>
+      <tr><td>Destinatario no identificado</td><td>Mantener separado y escalar a Gerencia; no asignarlo a una unidad por suposición.</td></tr>
+      <tr><td>Alimentos, medicamentos o perecederos</td><td>Notificar de inmediato. Recepción no garantiza refrigeración ni conservación.</td></tr>
+      <tr><td>Paquete entregado a un tercero</td><td>Sólo con autorización comprobable del destinatario; registrar nombre y firma de quien recibe.</td></tr>
+    </tbody>
+  </table>
+
+  <div class="sec-h"><div class="sec-num sec-num-a">3</div><div class="sec-title">Paquetes sin Reclamar</div></div>
   <table class="act-table amber">
     <thead><tr><th>Tiempo sin reclamar</th><th>Acción</th></tr></thead>
     <tbody>
@@ -815,7 +836,7 @@ nav{padding:10px 0 30px;}
     <tbody>
       <tr><td><strong>WhatsApp — Residente</strong></td><td>Notificaciones de paquetería, avisos de restricción de amenidades, confirmación de visitas autorizadas</td><td>Inmediato</td></tr>
       <tr><td><strong>WhatsApp — Grupo Operaciones</strong></td><td>Comunicación interna entre recepción, mantenimiento y gerencia</td><td>Máx. 15 minutos en horario</td></tr>
-      <tr><td><strong>AppSheet</strong></td><td>Registro oficial de todo evento. Es la fuente de verdad, no WhatsApp.</td><td>Inmediato al ocurrir el evento</td></tr>
+      <tr><td><strong>Sistemas digitales</strong></td><td>Registro oficial según el proceso: Llegadas, Vivook, Reservas Lagoona o AppSheet. WhatsApp no sustituye el registro.</td><td>Inmediato al ocurrir el evento</td></tr>
       <tr><td><strong>Llamada telefónica</strong></td><td>Urgencias y situaciones que requieren respuesta inmediata</td><td>Inmediato</td></tr>
       <tr><td><strong>Correo electrónico</strong></td><td>Comunicaciones formales que requieren constancia escrita</td><td>Máx. 24 horas hábiles</td></tr>
     </tbody>
@@ -844,6 +865,100 @@ nav{padding:10px 0 30px;}
   <div class="proc-footer"><span>PR-AM-REC-001 · 7.1</span><span>Confidencial — Residencial Aldea Mayab</span></div>
 </div>
 
+<!-- ══ 8.1 RESERVAS DE EXPERIENCIAS ══ -->
+<div class="page" id="p-81">
+  <div class="proc-eyebrow">8.0 Servicios y Reservas · 8.1</div>
+  <h1 class="proc-title">8.1 Reservas de Tours y Experiencias</h1>
+  <p class="proc-subtitle">Atención de solicitudes, revisión de disponibilidad, confirmación y generación de vouchers desde Reservas Lagoona.</p>
+
+  <div class="alert a-green"><div class="alert-icon"></div><div class="alert-body"><strong>Una sola fuente de verdad</strong>Toda solicitud, reserva manual, cambio de estado y voucher se gestiona en <strong>Reservas Lagoona</strong>. WhatsApp se utiliza para comunicarse con el huésped, pero no sustituye el registro.</div></div>
+
+  <div class="sec-h"><div class="sec-num sec-num-g">1</div><div class="sec-title">Datos que deben solicitarse</div></div>
+  <table class="act-table green">
+    <thead><tr><th style="width:210px">Dato</th><th>Validación</th></tr></thead>
+    <tbody>
+      <tr><td><strong>Huésped y contacto</strong></td><td>Nombre completo, WhatsApp y correo cuando esté disponible.</td></tr>
+      <tr><td><strong>Unidad</strong></td><td>Torre y departamento donde se hospeda.</td></tr>
+      <tr><td><strong>Experiencia y modalidad</strong></td><td>Seleccionar exactamente la opción del catálogo: compartida, privada o VIP.</td></tr>
+      <tr><td><strong>Fecha, hora y participantes</strong></td><td>Comprobar cupo máximo, horario disponible y restricciones operativas.</td></tr>
+      <tr><td><strong>Precio y pago</strong></td><td>Usar el precio calculado por el sistema. Registrar método y estado del pago.</td></tr>
+      <tr><td><strong>Observaciones</strong></td><td>Menores, alimentos, celebración, necesidades especiales o cualquier acuerdo autorizado.</td></tr>
+    </tbody>
+  </table>
+
+  <div class="sec-h"><div class="sec-num sec-num-g">2</div><div class="sec-title">Procedimiento de reserva</div></div>
+  <ul class="steps">
+    <li><div class="step-num">1</div><span>Abrir <strong>Reservas Lagoona</strong> con el acceso autorizado de recepción.</span></li>
+    <li><div class="step-num">2</div><span>Buscar primero por nombre, WhatsApp o número de reserva para evitar duplicados. Si no existe, seleccionar <strong>Nueva manual</strong>.</span></li>
+    <li><div class="step-num">3</div><span>Completar huésped, unidad, experiencia, fecha, hora y participantes. Confirmar que el total calculado coincide con el catálogo vigente.</span></li>
+    <li><div class="step-num">4</div><span>Pulsar <strong>Revisar disponibilidad</strong>. Si aparece un bloqueo o advertencia, no prometer la reserva; escalar al operador o a Gerencia.</span></li>
+    <li><div class="step-num">5</div><span>Guardar como <strong>Nueva solicitud</strong> o <strong>En revisión</strong> mientras falte disponibilidad o pago. Cambiar a <strong>Confirmada</strong> sólo cuando ambos estén validados.</span></li>
+    <li><div class="step-num">6</div><span>Generar el voucher, abrir el PDF y revisar nombre, experiencia, fecha, hora, participantes, punto de encuentro, total y estado de pago.</span></li>
+    <li><div class="step-num">7</div><span>Enviar el voucher al huésped y dejar la URL guardada en la reserva. Registrar cualquier cambio posterior en el mismo folio.</span></li>
+  </ul>
+
+  <div class="sec-h"><div class="sec-num sec-num-a">3</div><div class="sec-title">Cambios, cancelaciones y miércoles</div></div>
+  <table class="act-table amber">
+    <thead><tr><th>Situación</th><th>Acción</th></tr></thead>
+    <tbody>
+      <tr><td>Cambio de fecha, hora o participantes</td><td>Editar el registro original, recalcular precio, revisar disponibilidad y generar un voucher actualizado.</td></tr>
+      <tr><td>Cancelación</td><td>Cambiar el estado a Cancelada y anotar el motivo. No borrar la reserva.</td></tr>
+      <tr><td>Operación en miércoles</td><td>Solicitar confirmación especial. Cuando corresponda, crear la excepción autorizada antes de confirmar.</td></tr>
+      <tr><td>Precio distinto al catálogo</td><td>No modificar manualmente sin autorización de Gerencia. Registrar quién autorizó y el motivo.</td></tr>
+    </tbody>
+  </table>
+
+  <div class="alert a-red"><div class="alert-icon"></div><div class="alert-body"><strong>No confirmar verbalmente sin respaldo</strong>Una conversación o captura de WhatsApp no equivale a una reserva confirmada. Debe existir registro, disponibilidad validada y voucher revisado.</div></div>
+  <div class="proc-footer"><span>PR-AM-REC-001 · 8.1</span><span>Confidencial — Residencial Aldea Mayab</span></div>
+</div>
+
+<!-- ══ 8.2 FIREPIT ══ -->
+<div class="page" id="p-82">
+  <div class="proc-eyebrow">8.0 Servicios y Reservas · 8.2</div>
+  <h1 class="proc-title">8.2 Servicio de Firepit</h1>
+  <p class="proc-subtitle">Reserva, cobro, coordinación operativa y cierre del servicio en el muelle.</p>
+
+  <div class="info-grid-3">
+    <div class="info-card"><div class="info-card-label">Precio</div><div class="info-card-value">$1,500 MXN</div></div>
+    <div class="info-card"><div class="info-card-label">Horarios disponibles</div><div class="info-card-value">08:00 y 18:00</div></div>
+    <div class="info-card"><div class="info-card-label">Bioetanol</div><div class="info-card-value">3 litros por sesión</div></div>
+  </div>
+
+  <div class="alert a-amber"><div class="alert-icon"></div><div class="alert-body"><strong>No es una sesión privada del muelle</strong>La reserva corresponde al montaje y uso del firepit. El muelle permanece abierto para huéspedes y propietarios durante el servicio.</div></div>
+
+  <div class="sec-h"><div class="sec-num sec-num-g">1</div><div class="sec-title">Procedimiento de reserva</div></div>
+  <ul class="steps">
+    <li><div class="step-num">1</div><span><strong>Recibir la solicitud con anticipación en el lobby</strong> — Solicitar nombre, unidad, fecha, horario y número de asistentes.</span></li>
+    <li><div class="step-num">2</div><span><strong>Verificar disponibilidad</strong> — Sólo ofrecer los horarios de las 08:00 y 18:00. Confirmar que no exista otra sesión o restricción del muelle.</span></li>
+    <li><div class="step-num">3</div><span><strong>Explicar condiciones antes del pago</strong> — Precio de $1,500 MXN, muelle abierto, política de viento y lluvia, y reglas de seguridad.</span></li>
+    <li><div class="step-num">4</div><span><strong>Registrar y confirmar</strong> — Documentar huésped, unidad, fecha, horario, pago y responsable que autorizó la reserva. Entregar confirmación por escrito.</span></li>
+    <li><div class="step-num">5</div><span><strong>Coordinar preparación</strong> — Avisar a Operaciones con suficiente anticipación y confirmar disponibilidad de 3 litros de bioetanol.</span></li>
+    <li><div class="step-num">6</div><span><strong>Revisar clima</strong> — Verificar el pronóstico y las condiciones reales antes del montaje y nuevamente antes del encendido.</span></li>
+  </ul>
+
+  <div class="sec-h"><div class="sec-num sec-num-a">2</div><div class="sec-title">Condiciones climáticas y cancelación</div></div>
+  <table class="act-table amber">
+    <thead><tr><th>Condición</th><th>Aplicación</th></tr></thead>
+    <tbody>
+      <tr><td><strong>Viento mayor a 20 km/h</strong></td><td>No se enciende el firepit. Operaciones cancela o reprograma por seguridad.</td></tr>
+      <tr><td><strong>Lluvia</strong></td><td>No aplica reembolso. Esta condición debe explicarse y aceptarse antes de confirmar.</td></tr>
+      <tr><td><strong>Restricción del muelle</strong></td><td>Gerencia puede suspender el servicio por seguridad, mantenimiento o emergencia.</td></tr>
+    </tbody>
+  </table>
+
+  <div class="sec-h"><div class="sec-num sec-num-r">3</div><div class="sec-title">Seguridad y cierre</div></div>
+  <ul class="checklist">
+    <li><div class="check-box"></div><span>El bioetanol sólo lo manipula personal autorizado; nunca el huésped.</span></li>
+    <li><div class="check-box"></div><span>No rellenar el depósito mientras exista llama o el equipo esté caliente.</span></li>
+    <li><div class="check-box"></div><span>Mantener vidrio, materiales inflamables y objetos sueltos lejos del equipo.</span></li>
+    <li><div class="check-box"></div><span>Al terminar, extinguir correctamente, revisar que no quede llama y dejar el área limpia.</span></li>
+    <li><div class="check-box"></div><span>Registrar consumo de bioetanol, hora de cierre y cualquier incidente o cancelación.</span></li>
+  </ul>
+
+  <div class="alert a-red"><div class="alert-icon"></div><div class="alert-body"><strong>La seguridad prevalece sobre la reserva</strong>Recepción no debe presionar al personal para encender el equipo cuando las condiciones no sean seguras, aunque el servicio esté pagado o el huésped insista.</div></div>
+  <div class="proc-footer"><span>PR-AM-REC-001 · 8.2</span><span>Confidencial — Residencial Aldea Mayab</span></div>
+</div>
+
   </div>
 </div>
 <script>
@@ -858,13 +973,15 @@ const PAGES = {
   'p-32':'3.0 Control de Accesos · 3.2 Atención a Proveedores',
   'p-41':'4.0 Huéspedes · 4.1 Check-in',
   'p-42':'4.0 Huéspedes · 4.2 Check-out',
-  'p-51':'5.0 AppSheet · 5.1 Bitácora de Reservas',
+  'p-51':'5.0 Sistemas Digitales · 5.1 Registro de Llegadas',
   'p-52':'5.0 AppSheet · 5.2 Registro Nocturno',
-  'p-53':'5.0 AppSheet · 5.3 Control de Accesos',
-  'p-54':'5.0 AppSheet · 5.4 Paquetería e Incidentes',
+  'p-53':'5.0 Sistemas Digitales · 5.3 Accesos en Vivook',
+  'p-54':'5.0 AppSheet · 5.4 Incidentes',
   'p-61':'6.0 Atención · 6.1 Solicitudes y Quejas',
-  'p-62':'6.0 Atención · 6.2 Paquetería',
+  'p-62':'6.0 Atención · 6.2 Paquetería en Vivook',
   'p-71':'7.0 Comunicación · 7.1 Protocolo de Comunicación',
+  'p-81':'8.0 Servicios y Reservas · 8.1 Reservas de Experiencias',
+  'p-82':'8.0 Servicios y Reservas · 8.2 Servicio de Firepit',
 };
 function show(id){
   document.querySelectorAll('.page').forEach(p=>p.classList.remove('active'));
